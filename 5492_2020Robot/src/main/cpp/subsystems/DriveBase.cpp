@@ -12,13 +12,15 @@
 #include <frc/RobotDrive.h>
 #include <frc/drive/DifferentialDrive.h>
 
-TalonSRX * FrontL;
-TalonSRX * FrontR;
-TalonSRX * BackL; 
-TalonSRX * BackR;
+WPI_TalonSRX * FrontL;
+WPI_TalonSRX * FrontR;
+WPI_TalonSRX * BackL; 
+WPI_TalonSRX * BackR;
 frc::DifferentialDrive * _diffDrive;
 
-DriveBase::DriveBase() {}
+DriveBase::DriveBase() {
+	
+}
 
 void DriveBase::DriveBaseInit() {
     initialized = true;
@@ -26,7 +28,7 @@ void DriveBase::DriveBaseInit() {
 		FrontR = new WPI_TalonSRX (frontRightDrive);
 		BackL = new WPI_TalonSRX (backLeftDrive);
 		BackR = new WPI_TalonSRX (backRightDrive);
-		_diffDrive = new DifferentialDrive(*FrontL, *FrontR);
+		_diffDrive = new frc::DifferentialDrive(*FrontL, *FrontR);
 
 		FrontR->ConfigFactoryDefault();
 		FrontL->ConfigFactoryDefault();
