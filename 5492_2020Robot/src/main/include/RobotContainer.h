@@ -8,7 +8,8 @@
 #pragma once
 
 #include <frc2/command/Command.h>
-
+#include <frc2/command/button/Button.h>
+#include <frc2/command/InstantCommand.h>
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/DriveBase.h"
@@ -31,7 +32,10 @@ class RobotContainer {
   // The robot's subsystems and commands are defined here...
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
-  frc::XboxController m_driverStick{0};
   DriveBase m_driveBase;
+  frc::XboxController m_driverStick{0};
+  frc2::Button m_driverB{[&] {return m_driverStick.GetBButtonPressed();} };
+  frc2::InstantCommand reverseDrive{[this] {m_driveBase.reverseDrive(m_driverStick.GetBButtonPressed());} };
+  
   void ConfigureButtonBindings();
 };
