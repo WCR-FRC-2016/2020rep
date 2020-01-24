@@ -14,6 +14,8 @@
 #include "subsystems/DriveBase.h"
 #include "commands/ArcadeDrive.h"
 #include "frc/XboxController.h"
+#include "subsystems/Turret.h"
+#include "commands/ManualTurret.h"
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -32,6 +34,8 @@ class RobotContainer {
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
   frc::XboxController m_driverStick{0};
+  frc::XboxController m_manualStick{1};
   DriveBase m_driveBase;
+  Turret m_turret;
   void ConfigureButtonBindings();
 };

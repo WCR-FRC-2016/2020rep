@@ -14,16 +14,20 @@ m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase,
   [this] { return m_driverStick.GetY(frc::GenericHID::kLeftHand);}
   ));
 
+m_turret.SetDefualtCommand(ManualTurret(&m_turret,
+  [this] { return m_manualStick.GetX(frc::GenericHID::kRightHand);},
+  [this] { return m_manualStick.GetY(frc::GenericHID::kLeftHand);}
+));
+
 
   // Configure the button bindings
   ConfigureButtonBindings();
-
   
 }
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
-  
+
 
   //
   

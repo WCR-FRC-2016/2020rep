@@ -6,10 +6,16 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+// Talon addresses
+
 const int frontLeftDrive = 14; //encoder
 const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
+
+// Update later 
+const int xTurret = 9;
+const int yTurret = 10;
 
 const int RampTime = .5;
 
