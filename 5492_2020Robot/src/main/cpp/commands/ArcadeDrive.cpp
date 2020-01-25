@@ -7,7 +7,7 @@
 
 #include "commands/ArcadeDrive.h"
 
-ArcadeDrive::ArcadeDrive(DriveBase* drivebase, std::function<double()> foward, std::function<double()> rotation) : m_drivebase{drivebase}, m_foward{foward}, m_rotation{rotation}  {
+ArcadeDrive::ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward) : m_drivebase{drivebase}, m_rotation{rotation}, m_forward{forward}  {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({drivebase});
 }
@@ -17,7 +17,9 @@ void ArcadeDrive::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void ArcadeDrive::Execute() {
-  m_drivebase->ArcadeDrive(m_rotation(), m_foward());
+  double passRotation = (abs(m_rotation()*1000) > 200?m_rotation():0.0);
+  double passForward = (abs( m_forward()*1000) > 200?m_forward():0.0);
+  m_drivebase->ArcadeDrive(passRotation, passForward);
 }
 
 // Called once the command ends or is interrupted.

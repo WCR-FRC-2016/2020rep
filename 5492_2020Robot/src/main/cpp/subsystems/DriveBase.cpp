@@ -183,7 +183,7 @@ void DriveBase::ArcadeDrive(double xAxis, double yAxis) {
 			parsedLeft = parsedY - parsedX;
 			parsedRight = parsedY + parsedX;
 	}
-	_diffDrive->TankDrive(parsedLeft, parsedRight, false);
+	_diffDrive->TankDrive(-parsedLeft, parsedRight, false);
 
 }
 

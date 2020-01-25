@@ -20,7 +20,7 @@
 class ArcadeDrive
     : public frc2::CommandHelper<frc2::CommandBase, ArcadeDrive> {
  public:
-  ArcadeDrive(DriveBase* drivebase, std::function<double()> forward, std::function<double()> rotation);
+  ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward);
 
   void Initialize() override;
 
@@ -31,6 +31,7 @@ class ArcadeDrive
   bool IsFinished() override;
 private:
   DriveBase* m_drivebase;
-  std::function<double()> m_foward;
   std::function<double()> m_rotation;
+  std::function<double()> m_forward;
+  
 };

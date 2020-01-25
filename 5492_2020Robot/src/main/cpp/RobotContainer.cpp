@@ -13,10 +13,9 @@
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
 m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
-  [this] { return -(m_driverStick.GetX(frc::GenericHID::kRightHand));},
-  [this] { return m_driverStick.GetY(frc::GenericHID::kLeftHand);}
+  [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);},
+  [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
   ));
-
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -26,7 +25,7 @@ m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase,
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
-    frc2::JoystickButton(&m_driverStick, 2).WhenPressed(&reverseDrive);
+    frc2::JoystickButton(&m_driverStick, 2).WhenPressed(&m_reverseDrive);
 
   //
   
