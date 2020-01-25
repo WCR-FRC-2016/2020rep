@@ -10,6 +10,7 @@
 #include <frc2/command/button/Button.h>
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/InstantCommand.h>
+
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
 m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
@@ -27,7 +28,8 @@ void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
     m_driverB.WhenPressed(m_reverseDrive);
     m_driverY.WhenPressed(m_slowDrive);
-
+    m_manA.WhenPressed(m_collect);
+    m_manRBumper.WhenPressed(m_spit);
   //
   
 }

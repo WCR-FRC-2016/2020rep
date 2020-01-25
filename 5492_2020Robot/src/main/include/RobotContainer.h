@@ -13,6 +13,7 @@
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/DriveBase.h"
+#include "subsystems/TaxCollector.h"
 #include "commands/ArcadeDrive.h"
 #include "frc/XboxController.h"
 /**
@@ -33,10 +34,17 @@ class RobotContainer {
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
   DriveBase m_driveBase;
+  TaxCollector m_collector;
+
   frc::XboxController m_driverStick{0};
+  frc::XboxController m_manStick{1};
   frc2::Button m_driverB{[&] {return m_driverStick.GetBButtonPressed();} };
   frc2::InstantCommand m_reverseDrive{[this] {m_driveBase.reverseDrive(true);} };
   frc2::Button m_driverY{[&] {return m_driverStick.GetYButtonPressed();} };
   frc2::InstantCommand m_slowDrive{[this] {m_driveBase.slowDrive(true);} };
+  frc2::Button m_manA{[&] {return m_manStick.GetAButtonPressed();} };
+  frc2::InstantCommand m_collect{[this] {m_collector.Collect();} };
+  frc2::Button m_manRBumper{[&] {return m_manStick.GetBumperPressed(frc::GenericHID::kRightHand); } };
+  frc2::InstantCommand m_spit{[this] {m_collector.Spit();} };
   void ConfigureButtonBindings();
 };

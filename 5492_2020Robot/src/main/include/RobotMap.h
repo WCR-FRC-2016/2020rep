@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+//Get your Driver's License
 const int frontLeftDrive = 14; //encoder
 const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
@@ -23,6 +24,12 @@ const double LeftD = 0;
 const double MaxOutput = 1;
 const double NominalOutput = .25;
 const double PIDDeadband = 0.011415692;
+//The IRS is coming for you.
+const int collectorWheel = 2;
+const int collectorPivot = 3;
+const double collectionSpeed = 1.0;
+const double spitSpeed = -0.5;
+const double pivotSpeed = 0.5;
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other
