@@ -25,7 +25,8 @@ m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase,
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
-    frc2::JoystickButton(&m_driverStick, 2).WhenPressed(&m_reverseDrive);
+    m_driverB.WhenPressed(m_reverseDrive);
+    m_driverY.WhenPressed(m_slowDrive);
 
   //
   

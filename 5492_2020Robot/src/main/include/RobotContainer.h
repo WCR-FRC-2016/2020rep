@@ -35,7 +35,8 @@ class RobotContainer {
   DriveBase m_driveBase;
   frc::XboxController m_driverStick{0};
   frc2::Button m_driverB{[&] {return m_driverStick.GetBButtonPressed();} };
-  frc2::InstantCommand m_reverseDrive{[this] {m_driveBase.reverseDrive(m_driverStick.GetBButtonPressed());} };
-  
+  frc2::InstantCommand m_reverseDrive{[this] {m_driveBase.reverseDrive(true);} };
+  frc2::Button m_driverY{[&] {return m_driverStick.GetYButtonPressed();} };
+  frc2::InstantCommand m_slowDrive{[this] {m_driveBase.slowDrive(true);} };
   void ConfigureButtonBindings();
 };
