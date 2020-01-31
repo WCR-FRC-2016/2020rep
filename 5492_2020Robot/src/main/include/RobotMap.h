@@ -10,6 +10,9 @@ const int frontLeftDrive = 14; //encoder
 const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
+const int insideCollector = 2; //Change later
+const int triggerMotor = 3; // Change later
+const int flywheelMotor = 4; // Change later
 
 const int RampTime = .5;
 
@@ -19,6 +22,9 @@ const double RightD = 0;
 const double LeftP = 0.073814156 ;
 const double LeftI = 7.3814156E-6;
 const double LeftD = 0;
+const double flywheelP = 0;
+const double flywheelI = 0;
+const double flywheelD = 0;
 
 const double MaxOutput = 1;
 const double NominalOutput = .25;
