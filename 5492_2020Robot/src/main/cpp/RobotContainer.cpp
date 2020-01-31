@@ -17,7 +17,7 @@ m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase,
   [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);},
   [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
   ));
-
+m_collector.SetDefaultCommand(m_taxEvasion);)
   // Configure the button bindings
   ConfigureButtonBindings();
 
@@ -28,8 +28,8 @@ void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
     m_driverB.WhenPressed(m_reverseDrive);
     m_driverY.WhenPressed(m_slowDrive);
-    m_manA.WhenPressed(m_collect);
-    m_manRBumper.WhenPressed(m_spit);
+    m_manA.WhileHeld(m_collect);
+    m_manRBumper. WhileHeld(m_spit);
   //
   
 }

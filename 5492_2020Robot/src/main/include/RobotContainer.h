@@ -46,5 +46,7 @@ class RobotContainer {
   frc2::InstantCommand m_collect{[this] {m_collector.Collect();} };
   frc2::Button m_manRBumper{[&] {return m_manStick.GetBumperPressed(frc::GenericHID::kRightHand); } };
   frc2::InstantCommand m_spit{[this] {m_collector.Spit();} };
+
+  frc::InstandCommand m_taxEvasion{[this] {m_collector.TaxEvasion();} };
   void ConfigureButtonBindings();
 };
