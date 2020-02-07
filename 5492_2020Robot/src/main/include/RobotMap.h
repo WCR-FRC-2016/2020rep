@@ -11,6 +11,7 @@ const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
 const int insideCollector = 2; //Change later
+const int outsideCollector = 5; //Change Later
 const int triggerMotor = 3; // Change later
 const int flywheelMotor = 4; // Change later
 

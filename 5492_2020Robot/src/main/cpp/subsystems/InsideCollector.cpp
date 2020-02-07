@@ -10,6 +10,7 @@
 #include "RobotMap.h"
 #include <ctre/Phoenix.h>
 WPI_TalonSRX* ICMotor;
+WPI_TalonSRX* OCMotor;
 WPI_TalonSRX* TriggerMotor;
 WPI_TalonSRX* FlywheelMotor;
 
@@ -26,6 +27,8 @@ void InsideCollector::Periodic() {
 void InsideCollector::InsideCollectorInit() {
     OpenOneMotor* OpenICMotor = new OpenOneMotor();
     ICMotor = OpenICMotor->Open(insideCollector);
+    OCMotor = OpenICMotor->Open(outsideCollector);
+    OCMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, insideCollector);
     TriggerMotor = OpenICMotor->Open(triggerMotor);
     FlywheelMotor = OpenICMotor->Open(flywheelMotor);
     FlywheelMotor->Config_kP(0, flywheelP, 0);
