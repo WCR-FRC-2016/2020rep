@@ -10,10 +10,13 @@
 #include <ctre/Phoenix.h>
 #include "subsystems/Turret.h"
 #include "OpenOneMotor.h"
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableInstance.h"
+#include "VisionerCornerFinder.h"
 
 Turret::Turret() 
 {
-
+    table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 }
 
 // This method will be called once per scheduler run
@@ -44,6 +47,37 @@ void Turret::ManualyAxis (double y)
 {
     yTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, y);
 }
+//Vision
+//
+//
+void Turret::SwapLedMode(int mode)	{
+	//1 is off, 3 is on
+	table->PutNumber("ledMode",mode);
+}
+void Turret::SetStreamMode(){
+	// 0 standard sidebyside, 1 picture in picture main, 2 pip secondary 
+	streamMode = (streamMode == 1)?2:1;
+	table->PutNumber("stream", streamMode);
+}
+void Turret::SetCamMode(int mode) {
+	// 0 vision process, 1 driver cam
+	table->PutNumber("camMode", mode);
+}
+double* Turret::ReturnVisionX(){
+	targetOffsetAngle_Horizontal = table->GetNumber("tx",0.0); 
+	targetArea = table->GetNumber("ta",0.0);
+	visionData[0] = targetOffsetAngle_Horizontal;
+	visionData[1] = targetArea;
+
+	xCorners = table->GetNumberArray("tcornx ", defaultVision);
+	yCorners = table->GetNumberArray("tcorny", defaultVision);
+	VisionerCornerFinder* CornerFinder = new VisionerCornerFinder();
+	visionData[2] = CornerFinder->LostandFound(xCorners, yCorners);
+	printf("Diff=%f\n",visionData[2]);
+	return visionData;
+}
+
+
 
 
 

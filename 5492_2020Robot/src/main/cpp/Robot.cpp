@@ -8,8 +8,14 @@
 #include "Robot.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
-
-void Robot::RobotInit() {}
+#include <cscore_oo.h>
+#include <cameraserver/CameraServer.h>
+void Robot::RobotInit() {
+  cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
+    
+  camera.SetVideoMode(cs::VideoMode::kYUYV, 640, 360, 30);
+ 
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
