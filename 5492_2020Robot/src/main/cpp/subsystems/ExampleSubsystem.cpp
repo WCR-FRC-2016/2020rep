@@ -6,11 +6,24 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/ExampleSubsystem.h"
+#include "RobotMap.h"
+#include "ctre/Phoenix.h"
+#include "OpenOneMotor.h"
+
+//WPI_TalonSRX * MotorName Here
 
 ExampleSubsystem::ExampleSubsystem() {
   // Implementation of subsystem constructor goes here.
 }
-
+void ExampleSubsystem::Init() {
+  initialized = true;
+  OpenOneMotor* OpenMotor = new OpenOneMotor();
+  //Uncomment
+  //MotorName = OpenMotor->Open(ID);
+}
 void ExampleSubsystem::Periodic() {
   // Implementation of subsystem periodic method goes here.
+  if(!initialized){
+    ExampleSubsystem::Init();
+  }
 }
