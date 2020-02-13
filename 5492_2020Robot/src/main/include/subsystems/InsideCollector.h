@@ -20,6 +20,7 @@ class InsideCollector : public frc2::SubsystemBase {
   void InsideCollectorInit();
   void TransMotor(double speed);
   void Trigger(double speed);
+  void Flywheel(double speed);
   void Collection();
   void Shooting();
   void Spitting();

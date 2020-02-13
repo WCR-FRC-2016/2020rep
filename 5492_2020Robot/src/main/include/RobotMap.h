@@ -10,10 +10,10 @@ const int frontLeftDrive = 14; //encoder
 const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
-const int insideCollector = 2; //Change later
-const int outsideCollector = 5; //Change Later
-const int triggerMotor = 3; // Change later
-const int flywheelMotor = 4; // Change later
+const int insideCollector = 8; //Stage 1 Storage
+const int outsideCollector = 6; //Collectro instake wheels
+const int triggerMotor = 9; // Stage 2 Storage
+const int flywheelMotor = 2; // Upper Shooter Motor
 
 const int RampTime = .5;
 

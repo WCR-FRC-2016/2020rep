@@ -22,6 +22,9 @@ void InsideCollector::Periodic() {
         InsideCollector::InsideCollectorInit();
         Init = true;
     }
+    TransMotor(0.0);
+    Trigger(0.0);
+    Flywheel(0.0);
 }
 
 void InsideCollector::InsideCollectorInit() {
@@ -44,6 +47,10 @@ void InsideCollector::Trigger(double speed) {
     TriggerMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
 }
 
+void InsideCollector::Flywheel(double speed) {
+    FlywheelMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
+}
+
 void InsideCollector::Collection() {
     TransMotor(ICCollectSpeed);
     if (TriggerMotor->GetSensorCollection().IsFwdLimitSwitchClosed()) {
@@ -52,6 +59,8 @@ void InsideCollector::Collection() {
     else {
         Trigger(TriggerCollectSpeed);
     }
+    TransMotor(0.0);
+    Flywheel(0.0);
 }
 
 void InsideCollector::Shooting() {
@@ -61,12 +70,13 @@ void InsideCollector::Shooting() {
         TransMotor(ICCollectSpeed);
     }
     else {
-        Trigger(0);
-        TransMotor(0);
+        Trigger(0.0);
+        TransMotor(0.0);
     }
 }
 
 void InsideCollector::Spitting() {
     Trigger(TriggerSpitSpeed);
     TransMotor(ICSpitSpeed);
+    Flywheel(0.0);
 }
