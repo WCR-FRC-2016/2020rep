@@ -6,9 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/ManualTurret.h"
-
+#include "subsystems/Turret.h"
 ManualTurret::ManualTurret(Turret* turret,std::function<double()> x, std::function<double()> y) : m_turret{turret}, m_x{x}, m_y{y} {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(turret);
 }
 
 // Called when the command is initially scheduled.
@@ -19,6 +20,7 @@ void ManualTurret::Execute()
 {
   m_turret->ManualxAxis(m_x());
   m_turret->ManualyAxis(m_y());
+  m_turret->SwapLedMode(1);
 }
 
 // Called once the command ends or is interrupted.

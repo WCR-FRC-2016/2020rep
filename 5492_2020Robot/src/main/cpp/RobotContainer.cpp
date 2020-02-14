@@ -22,7 +22,7 @@ m_turret.SetDefaultCommand(ManualTurret(&m_turret,
 
   // Configure the button bindings
   ConfigureButtonBindings();
-  
+  m_manualY.ToggleWhenPressed(m_TrackX);
 }
 
 void RobotContainer::ConfigureButtonBindings() {

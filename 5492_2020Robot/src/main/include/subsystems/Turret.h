@@ -27,6 +27,7 @@ class Turret : public frc2::SubsystemBase {
  	double targetOffsetAngle_Vertical;
  	double targetArea;
   double targetSkew;
+  double targetCenterX;
 	nt::NetworkTableEntry ledmode;
 	std::shared_ptr<NetworkTable> table;
   double* ReturnVisionX();
@@ -34,10 +35,11 @@ class Turret : public frc2::SubsystemBase {
 	std::vector<double> yCorners;
   void SwapLedMode(int mode);
 	int streamMode = 2;
-  double visionData[3] = {0.0,0.0,0.0};
+  double visionData[4] = {0.0,0.0,0.0,0.0};
   double defaultVision[4] = {1.0,0.0,0.0,0.0};
   void SetCamMode(int mode);
 	void SetStreamMode();
+  void ISee();
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

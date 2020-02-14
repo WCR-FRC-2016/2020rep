@@ -8,6 +8,8 @@
 #pragma once
 
 #include <frc2/command/Command.h>
+#include <frc2/command/InstantCommand.h>
+#include <frc2/command/button/Button.h>
 
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
@@ -37,5 +39,9 @@ class RobotContainer {
   frc::XboxController m_manualStick{1};
   DriveBase m_driveBase;
   Turret m_turret;
+
+  frc2::InstantCommand m_TrackX{[this] {return m_turret.ISee();} };
+  frc2::Button m_manualY{[&] {return m_manualStick.GetYButtonPressed();} };
+
   void ConfigureButtonBindings();
 };

@@ -66,16 +66,25 @@ void Turret::SetCamMode(int mode) {
 double* Turret::ReturnVisionX(){
 	targetOffsetAngle_Horizontal = table->GetNumber("tx",0.0); 
 	targetArea = table->GetNumber("ta",0.0);
+	targetCenterX = table->GetNumber("tx",0.0);
 	visionData[0] = targetOffsetAngle_Horizontal;
 	visionData[1] = targetArea;
-
+	visionData[2] = targetCenterX;
 	xCorners = table->GetNumberArray("tcornx ", defaultVision);
 	yCorners = table->GetNumberArray("tcorny", defaultVision);
 	VisionerCornerFinder* CornerFinder = new VisionerCornerFinder();
-	visionData[2] = CornerFinder->LostandFound(xCorners, yCorners);
+	visionData[3] = CornerFinder->LostandFound(xCorners, yCorners);
 	printf("Diff=%f\n",visionData[2]);
 	return visionData;
 }
+void Turret::ISee(){
+	SwapLedMode(3);
+	double offSetX = ReturnVisionX()[2];
+	double parsedSpeed = offSetX * xTurretP;
+	parsedSpeed = (parsedSpeed > .1 || parsedSpeed < -.1)?parsedSpeed:0;
+	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
+}
+
 
 
 
