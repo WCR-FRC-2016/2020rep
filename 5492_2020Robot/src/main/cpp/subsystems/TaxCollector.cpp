@@ -17,29 +17,22 @@ TaxCollector::TaxCollector() {
     
 }
 void TaxCollector::InitCollector(){
-    OpenOneMotor* OpenCollector = new OpenOneMotor();
+
     OpenOneMotor* OpenPivoter = new OpenOneMotor();
-    Collector = OpenCollector->Open(collectorWheel);
     Pivoter = OpenPivoter->Open(collectorPivot);
 
 }
-void TaxCollector::Collect(){
-    
-    collectionDirection = (collectionDirection != collectionSpeed)?collectionSpeed:0.0;
 
-    
-    Collector->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, collectionDirection);
-}
-void TaxCollector::Spit(){
-    collectionDirection = (collectionDirection != spitSpeed)?spitSpeed:0.0;
-
-    
-    Collector->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, collectionDirection);
-}
 void TaxCollector::Pivot(){
-        pivotDirection = (pivotDirection <= 0.0)?pivotSpeed:-pivotSpeed;
+        pivotDirection = 0.0;
+        if(Pivoter->GetOutputCurrent() < pivotCurrentLimit){
+            pivotDirection = (pivotState)?pivotSpeedUp:-pivotSpeedDown;
+        }
+        Pivoter->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, pivotDirection);
 }
-
+void TaxCollector::StateChange(){
+    pivotState = !pivotState;
+}
 // This method will be called once per scheduler run
 void TaxCollector::Periodic() {
     if(!Initialized){

@@ -42,11 +42,9 @@ class RobotContainer {
   frc2::InstantCommand m_reverseDrive{[this] {m_driveBase.reverseDrive(true);} };
   frc2::Button m_driverY{[&] {return m_driverStick.GetYButtonPressed();} };
   frc2::InstantCommand m_slowDrive{[this] {m_driveBase.slowDrive(true);} };
-  frc2::Button m_manA{[&] {return m_manStick.GetAButtonPressed();} };
-  frc2::InstantCommand m_collect{[this] {m_collector.Collect();} };
-  frc2::Button m_manRBumper{[&] {return m_manStick.GetBumperPressed(frc::GenericHID::kRightHand); } };
-  frc2::InstantCommand m_spit{[this] {m_collector.Spit();} };
-
-  frc::InstandCommand m_taxEvasion{[this] {m_collector.TaxEvasion();} };
+  frc2::Button m_manX{[&] {return m_manStick.GetXButtonPressed();} };
+ 
+  frc2::InstantCommand m_stateChange{[this] {m_collector.StateChange(); } };
+  frc2::InstantCommand m_taxEvasion{[this] {m_collector.Pivot();} };
   void ConfigureButtonBindings();
 };

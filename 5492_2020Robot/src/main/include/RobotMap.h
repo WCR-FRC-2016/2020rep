@@ -27,9 +27,10 @@ const double PIDDeadband = 0.011415692;
 //The IRS is coming for you.
 const int collectorWheel = 2;
 const int collectorPivot = 3;
-const double collectionSpeed = 1.0;
-const double spitSpeed = -0.5;
-const double pivotSpeed = 0.5;
+
+const double pivotSpeedUp = 0.5;
+const double pivotSpeedDown = -0.5;
+const double pivotCurrentLimit = 10;
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other

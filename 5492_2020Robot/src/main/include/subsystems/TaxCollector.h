@@ -14,8 +14,8 @@ class TaxCollector : public frc2::SubsystemBase {
   TaxCollector();
   void InitCollector();
   void Pivot();
-  void Collect();
-  void Spit();
+  void StateChange();
+ 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -23,8 +23,9 @@ class TaxCollector : public frc2::SubsystemBase {
 
  private:
   bool Initialized = false;
-  double collectionDirection = 0.0;
   double pivotDirection = 0.0;
+  bool pivotState = true;
+  //true is up, false is down
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
