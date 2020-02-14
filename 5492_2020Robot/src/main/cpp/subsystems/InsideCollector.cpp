@@ -59,7 +59,7 @@ void InsideCollector::Collection() {
     else {
         Trigger(TriggerCollectSpeed);
     }
-    TransMotor(0.0);
+
     Flywheel(0.0);
 }
 
