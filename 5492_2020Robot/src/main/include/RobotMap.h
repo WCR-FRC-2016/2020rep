@@ -16,7 +16,7 @@ const int backRightDrive = 0;
 
 const int xTurret = 4;
 const int yTurret = 5;
-const double xTurretP = 0.001;
+const double xTurretP = 0.025;
 
 const int RampTime = .5;
 
