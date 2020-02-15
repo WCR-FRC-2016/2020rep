@@ -79,8 +79,8 @@ double* Turret::ReturnVisionX(){
 }
 void Turret::ISee(){
 	SwapLedMode(3);
-	double offSetX = ReturnVisionX()[2];
-	double parsedSpeed = offSetX * xTurretP;
+	double offSetX = ReturnVisionX()[2]; 
+	double parsedSpeed = offSetX * xTurretP + 0.075;
 	parsedSpeed = (parsedSpeed > .1 || parsedSpeed < -.1)?parsedSpeed:0;
 	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
 }
