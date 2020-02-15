@@ -29,6 +29,7 @@ void RobotContainer::ConfigureButtonBindings() {
     m_driverY.WhenPressed(m_slowDrive);
     m_manA.WhileHeld(m_collection);
     m_manRT.WhileHeld(m_shoot);
+    m_manB.WhileHeld(m_spit);
     
 
   

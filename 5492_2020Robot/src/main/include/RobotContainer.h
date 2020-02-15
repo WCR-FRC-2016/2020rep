@@ -43,8 +43,9 @@ class RobotContainer {
   frc2::InstantCommand m_slowDrive{[this] {m_driveBase.slowDrive(true);} };
   frc2::Button m_manA{[&] {return m_manStick.GetAButtonPressed();} };
   frc2::InstantCommand m_collection{[this] {m_insideCollector.Collection();} };
+  frc2::Button m_manB{[&] {return m_manStick.GetAButtonPressed();} };
+  frc2::InstantCommand m_spit{[this] {m_insideCollector.Spitting();} };
   frc2::Button m_manRT{[&] {return (0.5 < m_manStick.GetTriggerAxis(frc::GenericHID::kRightHand));} };
-
   frc2::InstantCommand m_shoot{[this] {m_insideCollector.Shooting();} };
 
 
