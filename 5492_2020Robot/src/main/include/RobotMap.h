@@ -14,7 +14,7 @@ const int insideCollector = 8; //Stage 1 Storage
 const int outsideCollector = 6; //Collectro instake wheels
 const int triggerMotor = 9; // Stage 2 Storage
 const int flywheelMotor = 2; // Upper Shooter Motor
-
+const int groundwheelmotor = 3; // Lower Shooter Motor
 const int RampTime = .5;
 
 const double RightP = 0.0678;

@@ -12,6 +12,7 @@
 WPI_TalonSRX* ICMotor;
 WPI_TalonSRX* OCMotor;
 WPI_TalonSRX* TriggerMotor;
+WPI_TalonSRX* GroundwheelMotor;
 WPI_TalonSRX* FlywheelMotor;
 
 InsideCollector::InsideCollector() {}
@@ -34,9 +35,13 @@ void InsideCollector::InsideCollectorInit() {
     OCMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, insideCollector);
     TriggerMotor = OpenICMotor->Open(triggerMotor);
     FlywheelMotor = OpenICMotor->Open(flywheelMotor);
+    GroundwheelMotor = OpenICMotor->Open(groundwheelmotor);
     FlywheelMotor->Config_kP(0, flywheelP, 0);
     FlywheelMotor->Config_kI(0, flywheelI, 0);
     FlywheelMotor->Config_kD(0, flywheelD, 0);
+    //Groundwheel turns opposite direction to the Flywheel
+    GroundwheelMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, flywheelMotor);
+    GroundwheelMotor->SetInverted(true);
 }
 
 void InsideCollector::TransMotor(double speed) {
