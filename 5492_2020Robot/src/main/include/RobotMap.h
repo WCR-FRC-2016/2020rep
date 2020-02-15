@@ -13,9 +13,9 @@ const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
 
-// Update later 
-const int xTurret = 9;
-const int yTurret = 10;
+
+const int xTurret = 4;
+const int yTurret = 5;
 const double xTurretP = 0.001;
 
 const int RampTime = .5;
