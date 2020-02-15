@@ -25,8 +25,7 @@ const double MaxOutput = 1;
 const double NominalOutput = .25;
 const double PIDDeadband = 0.011415692;
 //The IRS is coming for you.
-const int collectorWheel = 2;
-const int collectorPivot = 3;
+const int collectorPivot = 7;
 
 const double pivotSpeedUp = 0.5;
 const double pivotSpeedDown = -0.5;
