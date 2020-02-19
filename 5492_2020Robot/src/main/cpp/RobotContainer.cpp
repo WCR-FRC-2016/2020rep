@@ -7,6 +7,7 @@
 
 #include "RobotContainer.h"
 #include "commands/ArcadeDrive.h"
+#include "commands/BallCollectorDefault.h"
 #include <frc2/command/button/Button.h>
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/InstantCommand.h>
@@ -16,7 +17,7 @@ m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase,
   [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);},
   [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
   ));
-
+m_insideCollector.SetDefaultCommand(BallCollectorDefault());
   // Configure the button bindings
   ConfigureButtonBindings();
 
