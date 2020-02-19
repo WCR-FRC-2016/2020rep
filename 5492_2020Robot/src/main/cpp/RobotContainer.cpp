@@ -7,6 +7,7 @@
 
 #include "RobotContainer.h"
 #include "commands/ArcadeDrive.h"
+#include "commands/BallCollectorDefault.h"
 #include <frc2/command/button/Button.h>
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/InstantCommand.h>
@@ -28,8 +29,10 @@ void RobotContainer::ConfigureButtonBindings() {
     m_driverB.WhenPressed(m_reverseDrive);
     m_driverY.WhenPressed(m_slowDrive);
     m_manA.WhileHeld(m_collection);
+    m_manA.WhenReleased(BallCollectorDefault(&m_insideCollector));
     m_manRT.WhileHeld(m_shoot);
     m_manB.WhileHeld(m_spit);
+    m_manB.WhenReleased(BallCollectorDefault(&m_insideCollector));
     
 
   
