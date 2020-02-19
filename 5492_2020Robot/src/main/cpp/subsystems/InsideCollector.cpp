@@ -42,6 +42,7 @@ void InsideCollector::InsideCollectorInit() {
     //Groundwheel turns opposite direction to the Flywheel
     GroundwheelMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, flywheelMotor);
     GroundwheelMotor->SetInverted(true);
+    FlywheelMotor->SetInverted(true);
 }
 
 void InsideCollector::TransMotor(double speed) {
