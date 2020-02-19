@@ -23,9 +23,9 @@ void InsideCollector::Periodic() {
         InsideCollector::InsideCollectorInit();
         Init = true;
     }
-    TransMotor(0.0);
-    Trigger(0.0);
-    Flywheel(0.0);
+    //TransMotor(0.0);
+    //Trigger(0.0);
+    //Flywheel(0.0);
 }
 
 void InsideCollector::InsideCollectorInit() {
@@ -73,6 +73,7 @@ void InsideCollector::Shooting() {
     if (FlywheelMotor->GetSensorCollection().GetQuadratureVelocity()>(ShootingSpeed-error)) {
         Trigger(TriggerCollectSpeed);
         TransMotor(ICCollectSpeed);
+    
     }
     else {
         Trigger(0.0);

@@ -27,9 +27,9 @@ class InsideCollector : public frc2::SubsystemBase {
 
  private:
  bool Init = false;
- double ICCollectSpeed = 0.5;
+ double ICCollectSpeed = -0.5;
  double TriggerCollectSpeed = 0.5;
- double ICSpitSpeed = -0.5;
+ double ICSpitSpeed = 0.5;
  double TriggerSpitSpeed = -0.5;
  double ShootingSpeed = 3000;
  double error = 200;
