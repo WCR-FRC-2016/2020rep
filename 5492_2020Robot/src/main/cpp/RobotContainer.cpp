@@ -17,7 +17,7 @@ m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase,
   [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);},
   [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
   ));
-
+m_insideCollector.SetDefaultCommand(BallCollectorDefault(&m_insideCollector) );
   // Configure the button bindings
   ConfigureButtonBindings();
 
@@ -29,10 +29,8 @@ void RobotContainer::ConfigureButtonBindings() {
     m_driverB.WhenPressed(m_reverseDrive);
     m_driverY.WhenPressed(m_slowDrive);
     m_manA.WhileHeld(m_collection);
-    m_manA.WhenReleased(BallCollectorDefault(&m_insideCollector));
     m_manRT.WhileHeld(m_shoot);
     m_manB.WhileHeld(m_spit);
-    m_manB.WhenReleased(BallCollectorDefault(&m_insideCollector));
     
 
   

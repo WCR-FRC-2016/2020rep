@@ -9,12 +9,13 @@
 #include "OpenOneMotor.h"
 #include "RobotMap.h"
 #include <ctre/Phoenix.h>
+#include <frc/DigitalInput.h>
 WPI_TalonSRX* ICMotor;
 WPI_TalonSRX* OCMotor;
 WPI_TalonSRX* TriggerMotor;
 WPI_TalonSRX* GroundwheelMotor;
 WPI_TalonSRX* FlywheelMotor;
-
+frc::DigitalInput collectorLimit{0};
 InsideCollector::InsideCollector() {}
 
 // This method will be called once per scheduler run
@@ -59,7 +60,7 @@ void InsideCollector::Flywheel(double speed) {
 
 void InsideCollector::Collection() {
     TransMotor(ICCollectSpeed);
-    if (TriggerMotor->GetSensorCollection().IsFwdLimitSwitchClosed()) {
+    if (!collectorLimit.Get()) {
         Trigger(0);
     }
     else {

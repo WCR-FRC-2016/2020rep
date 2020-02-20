@@ -41,12 +41,14 @@ class RobotContainer {
   frc2::InstantCommand m_reverseDrive{[this] {m_driveBase.reverseDrive(true);} };
   frc2::Button m_driverY{[&] {return m_driverStick.GetYButtonPressed();} };
   frc2::InstantCommand m_slowDrive{[this] {m_driveBase.slowDrive(true);} };
-  frc2::Button m_manA{[&] {return m_manStick.GetAButtonPressed();} };
-  frc2::InstantCommand m_collection{[this] {m_insideCollector.Collection();} };
-  frc2::Button m_manB{[&] {return m_manStick.GetBButtonPressed();} };
-  frc2::InstantCommand m_spit{[this] {m_insideCollector.Spitting();} };
+
+  frc2::Button m_manA{[&] {return m_manStick.GetAButton();} };
+  frc2::InstantCommand m_collection{[this] {m_insideCollector.Collection();}, {&m_insideCollector} };
+  frc2::Button m_manB{[&] {return m_manStick.GetBButton();} };
+  frc2::InstantCommand m_spit{[this] {m_insideCollector.Spitting();}, {&m_insideCollector} };
   frc2::Button m_manRT{[&] {return (0.5 < m_manStick.GetTriggerAxis(frc::GenericHID::kRightHand));} };
-  frc2::InstantCommand m_shoot{[this] {m_insideCollector.Shooting();} };
+  frc2::InstantCommand m_shoot{[this] {m_insideCollector.Shooting();}, {&m_insideCollector} };
+
 
 
  
