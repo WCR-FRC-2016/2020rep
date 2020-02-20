@@ -10,7 +10,11 @@ const int frontLeftDrive = 14; //encoder
 const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
-
+const int insideCollector = 8; //Stage 1 Storage
+const int outsideCollector = 6; //Collectro instake wheels
+const int triggerMotor = 9; // Stage 2 Storage
+const int flywheelMotor = 2; // Upper Shooter Motor
+const int groundwheelmotor = 3; // Lower Shooter Motor
 const int RampTime = .5;
 
 const double RightP = 0.0678;
@@ -19,6 +23,9 @@ const double RightD = 0;
 const double LeftP = 0.073814156 ;
 const double LeftI = 7.3814156E-6;
 const double LeftD = 0;
+const double flywheelP = 0.005;
+const double flywheelI = 0;
+const double flywheelD = 0;
 
 const double MaxOutput = 1;
 const double NominalOutput = .25;

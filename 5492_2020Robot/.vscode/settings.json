@@ -99,5 +99,6 @@
     "string_view": "cpp",
     "cinttypes": "cpp"
   },
-  "C_Cpp.errorSquiggles": "Enabled"
+  "C_Cpp.errorSquiggles": "Enabled",
+  "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }
