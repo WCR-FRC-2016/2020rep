@@ -5,25 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ArcadeDrive.h"
+#include "commands/BallCollectorDefault.h"
 
-ArcadeDrive::ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward) : m_drivebase{drivebase}, m_rotation{rotation}, m_forward{forward}  {
-  // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({drivebase});
+
+BallCollectorDefault::BallCollectorDefault(InsideCollector* insidecollector) : m_insidecollector{insidecollector}{
+  // Use AddRequirements() here to declare subsystem dependencies.
+  AddRequirements({insidecollector});
 }
 
 // Called when the command is initially scheduled.
-void ArcadeDrive::Initialize() {}
+void BallCollectorDefault::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ArcadeDrive::Execute() {
-  double passRotation = (abs(m_rotation()*1000) > 200?m_rotation():0.0);
-  double passForward = (abs( m_forward()*1000) > 200?m_forward():0.0);
-  m_drivebase->ArcadeDrive(passRotation, passForward);
+void BallCollectorDefault::Execute() {
+  
+  m_insidecollector->TransMotor(0.0);
+  m_insidecollector->Trigger(0.0);
+  m_insidecollector->Flywheel(0.0);
+
 }
 
 // Called once the command ends or is interrupted.
-void ArcadeDrive::End(bool interrupted) {}
+void BallCollectorDefault::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ArcadeDrive::IsFinished() { return false; }
+bool BallCollectorDefault::IsFinished() { return false; }

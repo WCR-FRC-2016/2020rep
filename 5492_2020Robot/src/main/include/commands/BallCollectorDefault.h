@@ -9,7 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/DriveBase.h"
+#include "subsystems/InsideCollector.h"
 
 /**
  * An example command.
@@ -18,10 +18,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ArcadeDrive
-    : public frc2::CommandHelper<frc2::CommandBase, ArcadeDrive> {
+class BallCollectorDefault
+    : public frc2::CommandHelper<frc2::CommandBase, BallCollectorDefault> {
  public:
-  ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward);
+  BallCollectorDefault(InsideCollector* insidecollector);
 
   void Initialize() override;
 
@@ -30,9 +30,7 @@ class ArcadeDrive
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-private:
-  DriveBase* m_drivebase;
-  std::function<double()> m_rotation;
-  std::function<double()> m_forward;
-  
+
+  private:
+   InsideCollector* m_insidecollector;
 };

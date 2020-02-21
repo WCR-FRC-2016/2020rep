@@ -8,20 +8,31 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include "RobotMap.h"
-#include "ctre/Phoenix.h"
 
-class ExampleSubsystem : public frc2::SubsystemBase {
+class InsideCollector : public frc2::SubsystemBase {
  public:
-  ExampleSubsystem();
-  void Init();
+  InsideCollector();
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic() override;
+  void Periodic();
+  void InsideCollectorInit();
+  void TransMotor(double speed);
+  void Trigger(double speed);
+  void Flywheel(double speed);
+  void Collection();
+  void Shooting();
+  void Spitting();
 
  private:
-  bool initialized = false;
+ bool Init = false;
+ double ICCollectSpeed = -0.5;
+ double TriggerCollectSpeed = 0.5;
+ double ICSpitSpeed = 0.5;
+ double TriggerSpitSpeed = -0.5;
+ double ShootingSpeed = 3000;
+ double error = 200;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

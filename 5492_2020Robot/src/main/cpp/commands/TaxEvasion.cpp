@@ -5,25 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ArcadeDrive.h"
-
-ArcadeDrive::ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward) : m_drivebase{drivebase}, m_rotation{rotation}, m_forward{forward}  {
+#include "commands/TaxEvasion.h"
+#include "subsystems/TaxCollector.h"
+TaxEvasion::TaxEvasion(TaxCollector *collector) : m_collector{collector}{
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({drivebase});
+  AddRequirements({collector});
 }
 
 // Called when the command is initially scheduled.
-void ArcadeDrive::Initialize() {}
+void TaxEvasion::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ArcadeDrive::Execute() {
-  double passRotation = (abs(m_rotation()*1000) > 200?m_rotation():0.0);
-  double passForward = (abs( m_forward()*1000) > 200?m_forward():0.0);
-  m_drivebase->ArcadeDrive(passRotation, passForward);
+void TaxEvasion::Execute() {
+  m_collector->Pivot();
 }
 
 // Called once the command ends or is interrupted.
-void ArcadeDrive::End(bool interrupted) {}
+void TaxEvasion::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ArcadeDrive::IsFinished() { return false; }
+bool TaxEvasion::IsFinished() { return false; }

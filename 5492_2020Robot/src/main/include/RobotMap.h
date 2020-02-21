@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
-// Talon addresses
 
 const int frontLeftDrive = 14; //encoder
 const int frontRightDrive = 1; //encoder
@@ -14,22 +13,38 @@ const int backLeftDrive = 15;
 const int backRightDrive = 0;
 
 
+
 const int xTurret = 4;
 const int yTurret = 5;
 const double xTurretP = 0.025;
 
-const int RampTime = .5;
+const int insideCollector = 8; //Stage 1 Storage
+const int outsideCollector = 6; //Collectro instake wheels
+const int triggerMotor = 9; // Stage 2 Storage
+const int flywheelMotor = 2; // Upper Shooter Motor
+const int groundwheelmotor = 3; // Lower Shooter Motor
 
+const int RampTime = .5;
 const double RightP = 0.0678;
 const double RightI = 6.78E-6;
 const double RightD = 0;
 const double LeftP = 0.073814156 ;
 const double LeftI = 7.3814156E-6;
 const double LeftD = 0;
+const double flywheelP = 0.005;
+const double flywheelI = 0;
+const double flywheelD = 0;
 
 const double MaxOutput = 1;
 const double NominalOutput = .25;
 const double PIDDeadband = 0.011415692;
+//The IRS is coming for you.
+const int collectorPivot = 7;
+
+const double pivotSpeedUp = 0.5 ;
+const double pivotSpeedDown = -0.3;
+const double pivotCurrentLimit = 3;
+;
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other

@@ -7,12 +7,20 @@
 
 #include "RobotContainer.h"
 #include "commands/ArcadeDrive.h"
+#include "commands/BallCollectorDefault.h"
+#include "commands/TaxEvasion.h"
+#include <frc2/command/button/Button.h>
+#include <frc2/command/button/JoystickButton.h>
+#include <frc2/command/InstantCommand.h>
+#include <frc2/command/PrintCommand.h>
+
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
 m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
   [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);},
-  [this] { return m_driverStick.GetY(frc::GenericHID::kLeftHand);}
+  [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
   ));
+
 
 m_turret.SetDefaultCommand(ManualTurret(&m_turret,
   [this] { return m_manualStick.GetX(frc::GenericHID::kRightHand);},
@@ -20,16 +28,23 @@ m_turret.SetDefaultCommand(ManualTurret(&m_turret,
 ));
 
 
+m_insideCollector.SetDefaultCommand(BallCollectorDefault(&m_insideCollector) );
+m_collector.SetDefaultCommand(TaxEvasion(&m_collector));
   // Configure the button bindings
   ConfigureButtonBindings();
-  m_manualY.ToggleWhenPressed(m_TrackX);
+  
 }
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
 
-
-  //
+    m_driverB.WhenPressed(m_reverseDrive);
+    m_driverY.WhenPressed(m_slowDrive);
+    m_manA.WhileHeld(m_collection);
+    m_manRT.WhileHeld(m_shoot);
+    m_manB.WhileHeld(m_spit);
+    m_manX.WhenPressed(m_stateChange);
+    m_manualY.ToggleWhenPressed(m_TrackX);
   
 }
 
