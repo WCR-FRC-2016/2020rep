@@ -23,8 +23,8 @@ m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase,
 
 
 m_turret.SetDefaultCommand(ManualTurret(&m_turret,
-  [this] { return m_manualStick.GetX(frc::GenericHID::kRightHand);},
-  [this] { return m_manualStick.GetY(frc::GenericHID::kLeftHand);}
+  [this] { return m_manStick.GetX(frc::GenericHID::kRightHand);},
+  [this] { return m_manStick.GetY(frc::GenericHID::kLeftHand);}
 ));
 
 

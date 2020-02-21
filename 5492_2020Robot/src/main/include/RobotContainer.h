@@ -45,7 +45,7 @@ class RobotContainer {
   Turret m_turret;
 
   frc2::InstantCommand m_TrackX{[this] {return m_turret.ISee();} };
-  frc2::Button m_manualY{[&] {return m_manualStick.GetYButtonPressed();} };
+  frc2::Button m_manualY{[&] {return m_manStick.GetYButtonPressed();} };
 
   frc::XboxController m_driverStick{0};
   frc::XboxController m_manStick{1};
