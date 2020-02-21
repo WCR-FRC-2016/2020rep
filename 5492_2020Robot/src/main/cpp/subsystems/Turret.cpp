@@ -32,8 +32,9 @@ void Turret::TurretInit()
 {
     OpenOneMotor* OpenTurretMotor = new OpenOneMotor();
     //Update values later
-    xTurretMotor = OpenTurretMotor->Open(9);
-    yTurretMotor = OpenTurretMotor->Open(10);
+    xTurretMotor = OpenTurretMotor->Open(xTurret);
+	xTurretMotor->SetInverted(true);
+    yTurretMotor = OpenTurretMotor->Open(yTurret);
     init = true;
 
 }
