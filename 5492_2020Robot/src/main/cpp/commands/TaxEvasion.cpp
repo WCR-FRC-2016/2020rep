@@ -5,28 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/BallCollectorDefault.h"
-
-
-BallCollectorDefault::BallCollectorDefault(InsideCollector* insidecollector) : m_insidecollector{insidecollector}{
-  // Use AddRequirements() here to declare subsystem dependencies.
-  AddRequirements({insidecollector});
+#include "commands/TaxEvasion.h"
+#include "subsystems/TaxCollector.h"
+TaxEvasion::TaxEvasion(TaxCollector *collector) : m_collector{collector}{
+  // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements({collector});
 }
 
 // Called when the command is initially scheduled.
-void BallCollectorDefault::Initialize() {}
+void TaxEvasion::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void BallCollectorDefault::Execute() {
-  
-  m_insidecollector->TransMotor(0.0);
-  m_insidecollector->Trigger(0.0);
-  m_insidecollector->Flywheel(0.0);
-
+void TaxEvasion::Execute() {
+  m_collector->Pivot();
 }
 
 // Called once the command ends or is interrupted.
-void BallCollectorDefault::End(bool interrupted) {}
+void TaxEvasion::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool BallCollectorDefault::IsFinished() { return false; }
+bool TaxEvasion::IsFinished() { return false; }

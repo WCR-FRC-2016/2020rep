@@ -13,9 +13,11 @@
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/DriveBase.h"
+#include "subsystems/TaxCollector.h"
 #include "commands/ArcadeDrive.h"
 #include "frc/XboxController.h"
 #include "subsystems/InsideCollector.h"
+#include <frc2/command/PrintCommand.h>
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -35,6 +37,8 @@ class RobotContainer {
   ExampleCommand m_autonomousCommand;
   InsideCollector m_insideCollector;
   DriveBase m_driveBase;
+  TaxCollector m_collector;
+
   frc::XboxController m_driverStick{0};
   frc::XboxController m_manStick{1};
   frc2::Button m_driverB{[&] {return m_driverStick.GetBButtonPressed();} };
@@ -49,9 +53,12 @@ class RobotContainer {
   frc2::Button m_manRT{[&] {return (0.5 < m_manStick.GetTriggerAxis(frc::GenericHID::kRightHand));} };
   frc2::InstantCommand m_shoot{[this] {m_insideCollector.Shooting();}, {&m_insideCollector} };
 
+  frc2::Button m_manX{[&] {return m_manStick.GetXButtonPressed();} };
+  frc2::InstantCommand m_stateChange{[this] {m_collector.StateChange(); }, {&m_collector} };
 
 
- 
+
+
 
   void ConfigureButtonBindings();
 };
