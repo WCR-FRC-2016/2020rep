@@ -6,18 +6,25 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
-//Get your Driver's License
+
 const int frontLeftDrive = 14; //encoder
 const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
+
+
+
+const int xTurret = 4;
+const int yTurret = 5;
+const double xTurretP = 0.025;
+
 const int insideCollector = 8; //Stage 1 Storage
 const int outsideCollector = 6; //Collectro instake wheels
 const int triggerMotor = 9; // Stage 2 Storage
 const int flywheelMotor = 2; // Upper Shooter Motor
 const int groundwheelmotor = 3; // Lower Shooter Motor
-const int RampTime = .5;
 
+const int RampTime = .5;
 const double RightP = 0.0678;
 const double RightI = 6.78E-6;
 const double RightD = 0;

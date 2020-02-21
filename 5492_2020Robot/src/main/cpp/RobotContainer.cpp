@@ -20,24 +20,31 @@ m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase,
   [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);},
   [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
   ));
+
+
+m_turret.SetDefaultCommand(ManualTurret(&m_turret,
+  [this] { return m_manualStick.GetX(frc::GenericHID::kRightHand);},
+  [this] { return m_manualStick.GetY(frc::GenericHID::kLeftHand);}
+));
+
+
 m_insideCollector.SetDefaultCommand(BallCollectorDefault(&m_insideCollector) );
 m_collector.SetDefaultCommand(TaxEvasion(&m_collector));
   // Configure the button bindings
   ConfigureButtonBindings();
-
   
 }
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
+
     m_driverB.WhenPressed(m_reverseDrive);
     m_driverY.WhenPressed(m_slowDrive);
     m_manA.WhileHeld(m_collection);
     m_manRT.WhileHeld(m_shoot);
     m_manB.WhileHeld(m_spit);
     m_manX.WhenPressed(m_stateChange);
-
-  
+    m_manualY.ToggleWhenPressed(m_TrackX);
   
 }
 

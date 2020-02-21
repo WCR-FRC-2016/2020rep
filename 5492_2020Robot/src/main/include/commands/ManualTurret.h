@@ -9,7 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/DriveBase.h"
+#include "subsystems/Turret.h"
 
 /**
  * An example command.
@@ -18,10 +18,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ArcadeDrive
-    : public frc2::CommandHelper<frc2::CommandBase, ArcadeDrive> {
+class ManualTurret
+    : public frc2::CommandHelper<frc2::CommandBase, ManualTurret> {
  public:
-  ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward);
+  ManualTurret(Turret* turret,std::function<double()> x, std::function<double()> y);
 
   void Initialize() override;
 
@@ -30,9 +30,9 @@ class ArcadeDrive
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-private:
-  DriveBase* m_drivebase;
-  std::function<double()> m_rotation;
-  std::function<double()> m_forward;
-  
+
+  private:
+  Turret* m_turret;
+  std::function<double()> m_x;
+  std::function<double()> m_y;
 };

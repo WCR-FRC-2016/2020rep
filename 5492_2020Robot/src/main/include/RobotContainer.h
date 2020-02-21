@@ -8,16 +8,20 @@
 #pragma once
 
 #include <frc2/command/Command.h>
-#include <frc2/command/button/Button.h>
+
 #include <frc2/command/InstantCommand.h>
+#include <frc2/command/button/Button.h>
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/DriveBase.h"
 #include "subsystems/TaxCollector.h"
 #include "commands/ArcadeDrive.h"
 #include "frc/XboxController.h"
+#include "subsystems/Turret.h"
+#include "commands/ManualTurret.h"
 #include "subsystems/InsideCollector.h"
 #include <frc2/command/PrintCommand.h>
+
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -38,6 +42,10 @@ class RobotContainer {
   InsideCollector m_insideCollector;
   DriveBase m_driveBase;
   TaxCollector m_collector;
+  Turret m_turret;
+
+  frc2::InstantCommand m_TrackX{[this] {return m_turret.ISee();} };
+  frc2::Button m_manualY{[&] {return m_manualStick.GetYButtonPressed();} };
 
   frc::XboxController m_driverStick{0};
   frc::XboxController m_manStick{1};
@@ -55,9 +63,6 @@ class RobotContainer {
 
   frc2::Button m_manX{[&] {return m_manStick.GetXButtonPressed();} };
   frc2::InstantCommand m_stateChange{[this] {m_collector.StateChange(); }, {&m_collector} };
-
-
-
 
 
   void ConfigureButtonBindings();
