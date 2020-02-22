@@ -21,6 +21,7 @@
 #include "commands/ManualTurret.h"
 #include "subsystems/InsideCollector.h"
 #include <frc2/command/PrintCommand.h>
+#include "subsystems/DoYouEvenLift.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -43,9 +44,10 @@ class RobotContainer {
   DriveBase m_driveBase;
   TaxCollector m_collector;
   Turret m_turret;
+  DoYouEvenLift m_doYouEvenLift;
 
-  frc2::InstantCommand m_TrackX{[this] {return m_turret.ISee();} };
-  frc2::Button m_manualY{[&] {return m_manStick.GetYButtonPressed();} };
+  frc2::InstantCommand m_TrackX{[this] {return m_turret.ISee();} , {&m_turret} };
+  frc2::Button m_manY{[&] {return m_manStick.GetYButton();}};
 
   frc::XboxController m_driverStick{0};
   frc::XboxController m_manStick{1};
@@ -53,6 +55,9 @@ class RobotContainer {
   frc2::InstantCommand m_reverseDrive{[this] {m_driveBase.reverseDrive(true);} };
   frc2::Button m_driverY{[&] {return m_driverStick.GetYButtonPressed();} };
   frc2::InstantCommand m_slowDrive{[this] {m_driveBase.slowDrive(true);} };
+
+  frc2::Button m_driverRB{[&] {return m_driverStick.GetBumperPressed(frc::GenericHID::kRightHand);} };
+  frc2::InstantCommand m_Lift{[this] {m_doYouEvenLift.Lift();}, {&m_doYouEvenLift} };
 
   frc2::Button m_manA{[&] {return m_manStick.GetAButton();} };
   frc2::InstantCommand m_collection{[this] {m_insideCollector.Collection();}, {&m_insideCollector} };
@@ -64,6 +69,7 @@ class RobotContainer {
   frc2::Button m_manX{[&] {return m_manStick.GetXButtonPressed();} };
   frc2::InstantCommand m_stateChange{[this] {m_collector.StateChange(); }, {&m_collector} };
 
+  
 
   void ConfigureButtonBindings();
 };

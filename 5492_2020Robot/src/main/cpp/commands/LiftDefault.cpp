@@ -5,26 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ManualTurret.h"
-#include "subsystems/Turret.h"  
-ManualTurret::ManualTurret(Turret* turret,std::function<double()> x, std::function<double()> y) : m_turret{turret}, m_x{x}, m_y{y} {
+#include "commands/LiftDefault.h"
+#include "subsystems/DoYouEvenLift.h"
+LiftDefault::LiftDefault(DoYouEvenLift* doyouevenlift) :m_doYouEvenLift{doyouevenlift} {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({turret});
+  AddRequirements({doyouevenlift});
 }
 
 // Called when the command is initially scheduled.
-void ManualTurret::Initialize() {}
+void LiftDefault::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ManualTurret::Execute() 
-{
-  m_turret->ManualxAxis(m_x());
-  m_turret->ManualyAxis(m_y());
-  m_turret->SwapLedMode(1);
+void LiftDefault::Execute() {
+  m_doYouEvenLift->Default();
 }
 
 // Called once the command ends or is interrupted.
-void ManualTurret::End(bool interrupted) {}
+void LiftDefault::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ManualTurret::IsFinished() { return false; }
+bool LiftDefault::IsFinished() { return false; }

@@ -12,11 +12,18 @@ const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
 
-
+const int liftMaster = 12;
+const int liftApprentice = 13;
 
 const int xTurret = 4;
 const int yTurret = 5;
-const double xTurretP = 0.025;
+const double xTurretVisionP = 0.025;
+const double xTurretP = 0;
+const double xTurretMin = 0;
+const double xTurretError = 50;
+const double yTurretP = 0.004;
+const double yTurretError = 300;
+const double yTurretMin = .0;
 
 const int insideCollector = 8; //Stage 1 Storage
 const int outsideCollector = 6; //Collectro instake wheels
@@ -31,7 +38,7 @@ const double RightD = 0;
 const double LeftP = 0.073814156 ;
 const double LeftI = 7.3814156E-6;
 const double LeftD = 0;
-const double flywheelP = 0.25;
+const double flywheelP = 0.28;
 const double flywheelI = 0.0005;
 const double flywheelD = 0;
 

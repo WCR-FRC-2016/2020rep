@@ -37,6 +37,7 @@ void Turret::TurretInit()
     yTurretMotor = OpenTurretMotor->Open(yTurret);
 	xTurretMotor->SetSelectedSensorPosition(0);
 	yTurretMotor->SetSelectedSensorPosition(0);
+	table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
     init = true;
 
 }
@@ -54,6 +55,16 @@ void Turret::ManualyAxis (double y)
 //Vision
 //
 //
+void Turret::AutoxAxis(double position){
+	double difference = xTurretMotor->GetSelectedSensorPosition() - position;
+	double parsedSpeed = (difference>yTurretError)?xTurretP * difference + xTurretMin:0.0;
+	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
+}
+void Turret::AutoyAxis(double position){
+	double difference = yTurretMotor->GetSelectedSensorPosition() - position;
+	double parsedSpeed = (difference>yTurretError)?yTurretP * difference + yTurretMin:0.0;
+	yTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
+}
 void Turret::SwapLedMode(int mode)	{
 	//1 is off, 3 is on
 	table->PutNumber("ledMode",mode);
@@ -68,6 +79,7 @@ void Turret::SetCamMode(int mode) {
 	table->PutNumber("camMode", mode);
 }
 double* Turret::ReturnVisionX(){
+	table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 	targetOffsetAngle_Horizontal = table->GetNumber("tx",0.0); 
 	targetArea = table->GetNumber("ta",0.0);
 	targetCenterX = table->GetNumber("tx",0.0);
@@ -84,8 +96,8 @@ double* Turret::ReturnVisionX(){
 void Turret::ISee(){
 	SwapLedMode(3);
 	double offSetX = ReturnVisionX()[2]; 
-	double parsedSpeed = offSetX * xTurretP + 0.075;
-	parsedSpeed = (parsedSpeed > .1 || parsedSpeed < -.1)?parsedSpeed:0;
+	double parsedSpeed = offSetX * xTurretVisionP + .025;
+	parsedSpeed = (parsedSpeed > .05 || parsedSpeed < -.05)?parsedSpeed:0;
 	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
 }
 

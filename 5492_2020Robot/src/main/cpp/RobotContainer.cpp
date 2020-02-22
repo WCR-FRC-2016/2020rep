@@ -9,10 +9,12 @@
 #include "commands/ArcadeDrive.h"
 #include "commands/BallCollectorDefault.h"
 #include "commands/TaxEvasion.h"
+#include "commands/LiftDefault.h"
 #include <frc2/command/button/Button.h>
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/PrintCommand.h>
+
 
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
@@ -26,7 +28,7 @@ m_turret.SetDefaultCommand(ManualTurret(&m_turret,
   [this] { return m_manStick.GetX(frc::GenericHID::kRightHand);},
   [this] { return m_manStick.GetY(frc::GenericHID::kLeftHand);}
 ));
-
+m_doYouEvenLift.SetDefaultCommand(LiftDefault(&m_doYouEvenLift));
 
 m_insideCollector.SetDefaultCommand(BallCollectorDefault(&m_insideCollector) );
 m_collector.SetDefaultCommand(TaxEvasion(&m_collector));
@@ -40,11 +42,13 @@ void RobotContainer::ConfigureButtonBindings() {
 
     m_driverB.WhenPressed(m_reverseDrive);
     m_driverY.WhenPressed(m_slowDrive);
+    m_driverRB.WhenPressed(m_Lift);
+
     m_manA.WhileHeld(m_collection);
     m_manRT.WhileHeld(m_shoot);
     m_manB.WhileHeld(m_spit);
     m_manX.WhenPressed(m_stateChange);
-    m_manualY.ToggleWhenPressed(m_TrackX);
+    m_manY.WhileHeld(m_TrackX);
   
 }
 
