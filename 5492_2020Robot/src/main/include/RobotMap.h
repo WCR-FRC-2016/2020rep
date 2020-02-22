@@ -31,8 +31,8 @@ const double RightD = 0;
 const double LeftP = 0.073814156 ;
 const double LeftI = 7.3814156E-6;
 const double LeftD = 0;
-const double flywheelP = 0.005;
-const double flywheelI = 0;
+const double flywheelP = 0.25;
+const double flywheelI = 0.0005;
 const double flywheelD = 0;
 
 const double MaxOutput = 1;

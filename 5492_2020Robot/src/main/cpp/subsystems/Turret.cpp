@@ -35,6 +35,8 @@ void Turret::TurretInit()
     xTurretMotor = OpenTurretMotor->Open(xTurret);
 	xTurretMotor->SetInverted(true);
     yTurretMotor = OpenTurretMotor->Open(yTurret);
+	xTurretMotor->SetSelectedSensorPosition(0);
+	yTurretMotor->SetSelectedSensorPosition(0);
     init = true;
 
 }
@@ -46,6 +48,7 @@ void Turret::ManualxAxis (double x)
 
 void Turret::ManualyAxis (double y)
 {
+	y = (yTurretMotor->GetSelectedSensorPosition() > 700 && (y<0))?0:y;
     yTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, y);
 }
 //Vision

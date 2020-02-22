@@ -72,15 +72,17 @@ void InsideCollector::Collection() {
 
 void InsideCollector::Shooting() {
     FlywheelMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Velocity, ShootingSpeed);
-    if (FlywheelMotor->GetSensorCollection().GetQuadratureVelocity()>(ShootingSpeed-error)) {
+    if (-FlywheelMotor->GetSensorCollection().GetQuadratureVelocity()>(ShootingSpeed-error)) {
         Trigger(TriggerCollectSpeed);
         TransMotor(ICCollectSpeed);
-    
+
     }
     else {
+        
         Trigger(0.0);
         TransMotor(0.0);
     }
+    std::cout << FlywheelMotor->GetSensorCollection().GetQuadratureVelocity();
 }
 
 void InsideCollector::Spitting() {
