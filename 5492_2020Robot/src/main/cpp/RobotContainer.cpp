@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "RobotContainer.h"
+#include<frc/shuffleboard/Shuffleboard.h>
 #include "commands/ArcadeDrive.h"
 #include "commands/BallCollectorDefault.h"
 #include "commands/TaxEvasion.h"
@@ -14,10 +15,15 @@
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/PrintCommand.h>
-
+#include "commands/BaseLine.h"
 
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
+m_chooser.SetDefaultOption("Baseline", &m_baseLine);
+m_chooser.AddOption("BaseLine", &m_baseLine);
+
+frc::Shuffleboard::GetTab("Autonomous").Add(m_chooser);
+
 m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
   [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);},
   [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
@@ -42,10 +48,15 @@ void RobotContainer::ConfigureButtonBindings() {
 
     m_driverB.WhenPressed(m_reverseDrive);
     m_driverY.WhenPressed(m_slowDrive);
-    m_driverRB.WhenPressed(m_Lift);
+
+    m_driverRT.WhenHeld(m_Extend);
+    m_driverStart.WhileHeld(m_Delatch);
+    m_driverBack.WhileHeld(m_Latch);
+    m_driverLT.WhileHeld(m_Lift);
 
     m_manA.WhileHeld(m_collection);
     m_manRT.WhileHeld(m_shoot);
+    m_manStart.WhileHeld(m_fastshoot);
     m_manB.WhileHeld(m_spit);
     m_manX.WhenPressed(m_stateChange);
     m_manY.WhileHeld(m_TrackX);

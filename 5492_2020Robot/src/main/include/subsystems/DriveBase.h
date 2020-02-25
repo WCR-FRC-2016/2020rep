@@ -22,7 +22,8 @@ class DriveBase : public frc2::SubsystemBase {
   void RampSwitch(bool rampOn);
   void reverseDrive(bool bButton);
   void slowDrive(bool yButton);
-
+  void ResetEncoders();
+  bool CheckEncoders(double clicks);
  private:
   bool initialized = false;
   double driveConstant = -1;

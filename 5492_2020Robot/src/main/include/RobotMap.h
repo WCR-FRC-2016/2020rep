@@ -21,6 +21,7 @@ const double xTurretVisionP = 0.025;
 const double xTurretP = 0;
 const double xTurretMin = 0;
 const double xTurretError = 50;
+
 const double yTurretP = 0.004;
 const double yTurretError = 300;
 const double yTurretMin = .0;
@@ -38,8 +39,8 @@ const double RightD = 0;
 const double LeftP = 0.073814156 ;
 const double LeftI = 7.3814156E-6;
 const double LeftD = 0;
-const double flywheelP = 0.28;
-const double flywheelI = 0.0005;
+const double flywheelP = 0.65;
+const double flywheelI = 0;
 const double flywheelD = 0;
 
 const double MaxOutput = 1;
@@ -48,8 +49,10 @@ const double PIDDeadband = 0.011415692;
 //The IRS is coming for you.
 const int collectorPivot = 7;
 
-const double pivotSpeedUp = 0.5 ;
-const double pivotSpeedDown = -0.3;
+const double ShootingSpeed = 17500;
+const double FastShootingSpeed = 20000;
+const double pivotSpeedUp = 1 ;
+const double pivotSpeedDown = -0.5;
 const double pivotCurrentLimit = 3;
 ;
 /**

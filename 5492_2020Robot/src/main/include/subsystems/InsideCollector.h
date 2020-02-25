@@ -22,7 +22,7 @@ class InsideCollector : public frc2::SubsystemBase {
   void Trigger(double speed);
   void Flywheel(double speed);
   void Collection();
-  void Shooting();
+  void Shooting(double speed);
   void Spitting();
 
  private:
@@ -31,7 +31,7 @@ class InsideCollector : public frc2::SubsystemBase {
  double TriggerCollectSpeed = 0.5;
  double ICSpitSpeed = 0.5;
  double TriggerSpitSpeed = -0.5;
- double ShootingSpeed = 17500;
+ 
  double error = 1000;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

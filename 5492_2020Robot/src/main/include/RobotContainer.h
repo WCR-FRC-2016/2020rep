@@ -22,6 +22,9 @@
 #include "subsystems/InsideCollector.h"
 #include <frc2/command/PrintCommand.h>
 #include "subsystems/DoYouEvenLift.h"
+#include "Robotmap.h"
+#include "commands/BaseLine.h"
+#include <frc/smartdashboard/SendableChooser.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -46,6 +49,9 @@ class RobotContainer {
   Turret m_turret;
   DoYouEvenLift m_doYouEvenLift;
 
+  frc::SendableChooser<frc2::Command*> m_chooser;
+  BaseLine m_baseLine{&m_driveBase};
+
   frc2::InstantCommand m_TrackX{[this] {return m_turret.ISee();} , {&m_turret} };
   frc2::Button m_manY{[&] {return m_manStick.GetYButton();}};
 
@@ -56,15 +62,27 @@ class RobotContainer {
   frc2::Button m_driverY{[&] {return m_driverStick.GetYButtonPressed();} };
   frc2::InstantCommand m_slowDrive{[this] {m_driveBase.slowDrive(true);} };
 
-  frc2::Button m_driverRB{[&] {return m_driverStick.GetBumperPressed(frc::GenericHID::kRightHand);} };
+
+  frc2::Button m_driverRT{[&] {return (0.5 < m_driverStick.GetTriggerAxis(frc::GenericHID::kRightHand));} };
+  frc2::Button m_driverLT{[&] {return (0.5 < m_driverStick.GetTriggerAxis(frc::GenericHID::kLeftHand));} };
+  frc2::Button m_driverStart{[&] {return m_driverStick.GetStartButton();} };
+  frc2::Button m_driverBack{[&] {return m_driverStick.GetBackButton();} };
+
   frc2::InstantCommand m_Lift{[this] {m_doYouEvenLift.Lift();}, {&m_doYouEvenLift} };
+  frc2::InstantCommand m_Extend{[this] {m_doYouEvenLift.Extend();}, {&m_doYouEvenLift} };
+  frc2::InstantCommand m_Latch{[this] {m_doYouEvenLift.Latch();}, {&m_doYouEvenLift} };
+  frc2::InstantCommand m_Delatch{[this] {m_doYouEvenLift.Delatch();}, {&m_doYouEvenLift} };
+
 
   frc2::Button m_manA{[&] {return m_manStick.GetAButton();} };
   frc2::InstantCommand m_collection{[this] {m_insideCollector.Collection();}, {&m_insideCollector} };
   frc2::Button m_manB{[&] {return m_manStick.GetBButton();} };
   frc2::InstantCommand m_spit{[this] {m_insideCollector.Spitting();}, {&m_insideCollector} };
   frc2::Button m_manRT{[&] {return (0.5 < m_manStick.GetTriggerAxis(frc::GenericHID::kRightHand));} };
-  frc2::InstantCommand m_shoot{[this] {m_insideCollector.Shooting();}, {&m_insideCollector} };
+  frc2::InstantCommand m_shoot{[this] {m_insideCollector.Shooting(ShootingSpeed);}, {&m_insideCollector} };
+  frc2::Button m_manStart{[&]{return m_manStick.GetStartButton();} };
+  frc2::InstantCommand m_fastshoot{[this] {m_insideCollector.Shooting(FastShootingSpeed);}, {&m_insideCollector} };
+
 
   frc2::Button m_manX{[&] {return m_manStick.GetXButtonPressed();} };
   frc2::InstantCommand m_stateChange{[this] {m_collector.StateChange(); }, {&m_collector} };

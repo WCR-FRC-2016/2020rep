@@ -70,9 +70,9 @@ void InsideCollector::Collection() {
     Flywheel(0.0);
 }
 
-void InsideCollector::Shooting() {
-    FlywheelMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Velocity, ShootingSpeed);
-    if (-FlywheelMotor->GetSensorCollection().GetQuadratureVelocity()>(ShootingSpeed-error)) {
+void InsideCollector::Shooting(double speed) {
+    FlywheelMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Velocity, speed);
+    if (-FlywheelMotor->GetSensorCollection().GetQuadratureVelocity()>(speed-error)) {
         Trigger(TriggerCollectSpeed);
         TransMotor(ICCollectSpeed);
 

@@ -23,6 +23,17 @@ void DoYouEvenLift::Lift(){
     LiftMasterMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
 
 }
+void DoYouEvenLift::Extend(){
+    LiftMasterMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.5);
+
+}
+void DoYouEvenLift::Latch(){
+    LatchMotor.Set(0);
+}
+void DoYouEvenLift::Delatch(){
+    LatchMotor.Set(1);
+}
+
 void DoYouEvenLift::Default(){
     LiftMasterMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
 }

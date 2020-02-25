@@ -44,6 +44,9 @@ void Turret::TurretInit()
 
 void Turret::ManualxAxis (double x)
 {
+	if (x < 0.2 && x > -.2){
+		x = 0;
+	}
     xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, x);
 }
 
@@ -83,22 +86,27 @@ double* Turret::ReturnVisionX(){
 	targetOffsetAngle_Horizontal = table->GetNumber("tx",0.0); 
 	targetArea = table->GetNumber("ta",0.0);
 	targetCenterX = table->GetNumber("tx",0.0);
+	targetCenterY = table->GetNumber("ty",0.0);
 	visionData[0] = targetOffsetAngle_Horizontal;
 	visionData[1] = targetArea;
 	visionData[2] = targetCenterX;
+	visionData[3] = targetCenterY;
 	xCorners = table->GetNumberArray("tcornx ", defaultVision);
 	yCorners = table->GetNumberArray("tcorny", defaultVision);
 	VisionerCornerFinder* CornerFinder = new VisionerCornerFinder();
-	visionData[3] = CornerFinder->LostandFound(xCorners, yCorners);
+	visionData[4] = CornerFinder->LostandFound(xCorners, yCorners);
 	printf("Diff=%f\n",visionData[2]);
 	return visionData;
 }
 void Turret::ISee(){
 	SwapLedMode(3);
 	double offSetX = ReturnVisionX()[2]; 
-	double parsedSpeed = offSetX * xTurretVisionP + .025;
-	parsedSpeed = (parsedSpeed > .05 || parsedSpeed < -.05)?parsedSpeed:0;
-	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
+	double offSetY = ReturnVisionX()[3];
+	double parsedSpeedX = offSetX * xTurretVisionP + .025;
+	//double parsedPositionY = offSetY * yTurretP;
+	parsedSpeedX = (parsedSpeedX > .05 || parsedSpeedX < -.05)?parsedSpeedX:0;
+	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeedX);
+	//AutoyAxis(parsedPositionY);
 }
 
 

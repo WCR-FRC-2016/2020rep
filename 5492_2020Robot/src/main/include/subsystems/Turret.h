@@ -30,6 +30,7 @@ class Turret : public frc2::SubsystemBase {
  	double targetArea;
   double targetSkew;
   double targetCenterX;
+  double targetCenterY;
 	nt::NetworkTableEntry ledmode;
 	std::shared_ptr<NetworkTable> table;
   double* ReturnVisionX();
@@ -37,7 +38,7 @@ class Turret : public frc2::SubsystemBase {
 	std::vector<double> yCorners;
   void SwapLedMode(int mode);
 	int streamMode = 2;
-  double visionData[4] = {0.0,0.0,0.0,0.0};
+  double visionData[5] = {0.0,0.0,0.0,0.0,0.0};
   double defaultVision[4] = {1.0,0.0,0.0,0.0};
   void SetCamMode(int mode);
 	void SetStreamMode();

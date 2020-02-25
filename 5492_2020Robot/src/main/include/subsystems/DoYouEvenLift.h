@@ -9,12 +9,16 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
+#include <frc/Servo.h>
 class DoYouEvenLift : public frc2::SubsystemBase {
  public:
   DoYouEvenLift();
   void LiftInit();
   void Lift();
   void Default();
+  void Extend();
+  void Delatch();
+  void Latch();
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -26,4 +30,5 @@ class DoYouEvenLift : public frc2::SubsystemBase {
   bool init = false;
   WPI_TalonSRX* LiftMasterMotor;
   WPI_TalonSRX* LiftApprentinceMotor;
+  frc::Servo LatchMotor {0};
 };

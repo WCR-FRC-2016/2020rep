@@ -102,7 +102,13 @@ void DriveBase::DriveBaseInit() {
 		printf("Done setting up motor \n");
 
 }
-
+void DriveBase::ResetEncoders(){
+	FrontL->SetSelectedSensorPosition(0);
+	FrontR->SetSelectedSensorPosition(0);
+}
+bool DriveBase::CheckEncoders(double clicks){
+	return (FrontL->GetSelectedSensorPosition() >= clicks || FrontR->GetSelectedSensorPosition() >=clicks);
+}
 void DriveBase::ArcadeDrive(double xAxis, double yAxis) {
   	double parsedLeft;
 	double parsedRight;
