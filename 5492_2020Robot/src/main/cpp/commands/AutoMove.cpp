@@ -7,14 +7,14 @@
 
 #include "commands/AutoMove.h"
 
-AutoMove::AutoMove(DriveBase* drivebase, double clicks): m_drivebase{drivebase}, m_clicks{clicks} {
+AutoMove::AutoMove(DriveBase* drivebase): m_drivebase{drivebase} {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({drivebase});
 }
 
 // Called when the command is initially scheduled.
 void AutoMove::Initialize() {
-  m_drivebase->ResetEncoders();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -26,4 +26,4 @@ void AutoMove::Execute() {
 void AutoMove::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoMove::IsFinished() { return m_drivebase->CheckEncoders(m_clicks); }
+bool AutoMove::IsFinished() { return false; }

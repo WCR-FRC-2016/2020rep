@@ -10,6 +10,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include <subsystems/DriveBase.h>
+#include <frc/DriverStation.h>
 /**
  * An example command.
  *
@@ -20,7 +21,7 @@
 class AutoMove
     : public frc2::CommandHelper<frc2::CommandBase, AutoMove> {
  public:
-  AutoMove(DriveBase* drivebase, double clicks);
+  AutoMove(DriveBase* drivebase);
 
   void Initialize() override;
 
@@ -32,4 +33,5 @@ class AutoMove
 private:
   DriveBase* m_drivebase;
   double m_clicks;
+  std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 };

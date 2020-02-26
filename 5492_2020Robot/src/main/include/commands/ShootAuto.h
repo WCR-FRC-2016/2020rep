@@ -8,11 +8,13 @@
 #pragma once
 
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/ParallelRaceGroup.h>
+#include <frc2/command/ParallelCommandGroup.h>
 #include "subsystems/DriveBase.h"
-class Baseline
-    : public frc2::CommandHelper<frc2::ParallelRaceGroup,
-                                 Baseline> {
+#include "subsystems/Turret.h"
+#include "subsystems/InsideCollector.h"
+class ShootAuto
+    : public frc2::CommandHelper<frc2::ParallelCommandGroup,
+                                 ShootAuto> {
  public:
-  Baseline(DriveBase* drivebase);
+  ShootAuto(DriveBase* drivebase, Turret* turret, InsideCollector* ic);
 };

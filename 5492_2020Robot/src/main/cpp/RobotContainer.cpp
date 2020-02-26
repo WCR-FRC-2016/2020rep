@@ -15,8 +15,8 @@
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/PrintCommand.h>
-#include "commands/BaseLine.h"
-
+#include "commands/Baseline.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
 m_chooser.SetDefaultOption("Baseline", &m_baseLine);
@@ -65,5 +65,5 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return &m_autonomousCommand;
+  return m_chooser.GetSelected();
 }

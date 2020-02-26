@@ -5,20 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/BaseLine.h"
-#include "frc2/command/StartEndCommand.h"
-#include "frc2/command/InstantCommand.h"
+#include "commands/Baseline.h"
 #include "commands/AutoMove.h"
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-BaseLine::BaseLine(DriveBase* drivebase){
+Baseline::Baseline(DriveBase* drivebase) {
   // Add your commands here, e.g.
   // AddCommands(FooCommand(), BarCommand());
-  AddCommands(
-    AutoMove(drivebase, 1000)
-    );
-
-
-  
+  AddCommands(AutoMove(drivebase).WithTimeout(1_s));
 }

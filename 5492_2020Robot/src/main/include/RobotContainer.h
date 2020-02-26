@@ -23,7 +23,7 @@
 #include <frc2/command/PrintCommand.h>
 #include "subsystems/DoYouEvenLift.h"
 #include "Robotmap.h"
-#include "commands/BaseLine.h"
+#include "commands/Baseline.h"
 #include <frc/smartdashboard/SendableChooser.h>
 
 /**
@@ -50,7 +50,7 @@ class RobotContainer {
   DoYouEvenLift m_doYouEvenLift;
 
   frc::SendableChooser<frc2::Command*> m_chooser;
-  BaseLine m_baseLine{&m_driveBase};
+  Baseline m_baseLine{&m_driveBase};
 
   frc2::InstantCommand m_TrackX{[this] {return m_turret.ISee();} , {&m_turret} };
   frc2::Button m_manY{[&] {return m_manStick.GetYButton();}};
