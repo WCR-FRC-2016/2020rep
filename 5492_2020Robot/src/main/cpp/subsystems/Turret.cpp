@@ -60,12 +60,14 @@ void Turret::ManualyAxis (double y)
 //
 void Turret::AutoxAxis(double position){
 	double difference = xTurretMotor->GetSelectedSensorPosition() - position;
-	double parsedSpeed = (difference>yTurretError)?xTurretP * difference + xTurretMin:0.0;
+	double parsedSpeed = (difference>yTurretError)?xTurretP * difference:0.0;
+	parsedSpeed = (parsedSpeed >0)?parsedSpeed + xTurretMin:parsedSpeed - xTurretMin;
 	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
 }
 void Turret::AutoyAxis(double position){
 	double difference = yTurretMotor->GetSelectedSensorPosition() - position;
 	double parsedSpeed = (difference>yTurretError)?yTurretP * difference + yTurretMin:0.0;
+	parsedSpeed = (parsedSpeed >0)?parsedSpeed + yTurretMin:parsedSpeed - yTurretMin;
 	yTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
 }
 void Turret::SwapLedMode(int mode)	{

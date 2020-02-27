@@ -22,9 +22,9 @@ const double xTurretP = 0;
 const double xTurretMin = 0;
 const double xTurretError = 50;
 
-const double yTurretP = 0.004;
+const double yTurretP = 0.0025;
 const double yTurretError = 300;
-const double yTurretMin = .0;
+const double yTurretMin = .15;
 
 const int insideCollector = 8; //Stage 1 Storage
 const int outsideCollector = 6; //Collectro instake wheels

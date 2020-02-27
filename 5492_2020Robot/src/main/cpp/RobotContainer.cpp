@@ -57,9 +57,11 @@ void RobotContainer::ConfigureButtonBindings() {
     m_manA.WhileHeld(m_collection);
     m_manRT.WhileHeld(m_shoot);
     m_manStart.WhileHeld(m_fastshoot);
+    m_manStart.WhileHeld(m_halfHood);
     m_manB.WhileHeld(m_spit);
     m_manX.WhenPressed(m_stateChange);
     m_manY.WhileHeld(m_TrackX);
+  
   
 }
 
