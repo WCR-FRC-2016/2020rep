@@ -17,13 +17,20 @@ const int liftApprentice = 13;
 
 const int xTurret = 4;
 const int yTurret = 5;
-const double xTurretVisionP = 0.025;
-const double xTurretP = 0;
-const double xTurretMin = 0;
-const double xTurretError = 50;
+const double xTurretVisionP = 0.020;
 
-const double yTurretP = 0.0025;
-const double yTurretError = 300;
+
+const double xTurretP = 0.0001;
+const double xTurretMin = 0.1;
+const double xTurretError = 200;
+const double xTurret90 = 6960;
+const double xTurret180 = 13860;
+const double xTurretn60 = -4620; //limmit 1
+const double xTurret240 = 18480; //limit 2
+const double xTurretDegree = 77;
+
+const double yTurretP = 0.005;
+const double yTurretError = 10;
 const double yTurretMin = .15;
 
 const int insideCollector = 8; //Stage 1 Storage

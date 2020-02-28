@@ -20,7 +20,7 @@
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
 m_chooser.SetDefaultOption("Baseline", &m_baseLine);
-m_chooser.AddOption("BaseLine", &m_baseLine);
+m_chooser.AddOption("Shooting Straight", &m_shootingAuto);
 
 frc::Shuffleboard::GetTab("Autonomous").Add(m_chooser);
 

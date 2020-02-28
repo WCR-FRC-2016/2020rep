@@ -5,29 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/BallCollectorDefault.h"
-
-
-BallCollectorDefault::BallCollectorDefault(InsideCollector* insidecollector) : m_insidecollector{insidecollector}{
-  // Use AddRequirements() here to declare subsystem dependencies.
-  AddRequirements({insidecollector});
+#include "commands/AutoxTurret.h"
+#include "RobotMap.h"
+AutoxTurret::AutoxTurret(Turret* turret, double degrees): m_turret{turret}, m_degrees{degrees} {
+  // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements({turret});
 }
 
 // Called when the command is initially scheduled.
-void BallCollectorDefault::Initialize() {}
+void AutoxTurret::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void BallCollectorDefault::Execute() {
-  
-  m_insidecollector->TransMotor(0.0);
-  m_insidecollector->Trigger(0.0);
-  m_insidecollector->Flywheel(0.0);
-  m_insidecollector->OutsideMotor(0.0);
-
+void AutoxTurret::Execute() {
+  m_turret->AutoxAxis(m_degrees*xTurretDegree);
 }
 
 // Called once the command ends or is interrupted.
-void BallCollectorDefault::End(bool interrupted) {}
+void AutoxTurret::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool BallCollectorDefault::IsFinished() { return false; }
+bool AutoxTurret::IsFinished() { return (m_turret->returnxPositon() < m_degrees*xTurretDegree + xTurretError && m_turret->returnyPosition() > m_degrees*xTurretDegree - xTurretError); }

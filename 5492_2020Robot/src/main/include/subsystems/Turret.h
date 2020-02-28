@@ -22,7 +22,9 @@ class Turret : public frc2::SubsystemBase {
   void ManualxAxis(double x);
   void ManualyAxis(double y);
   void AutoxAxis(double position);
+  double returnxPositon();
   void AutoyAxis(double position);
+  double returnyPosition();
 
   //Vision Stuff
   double targetOffsetAngle_Horizontal;

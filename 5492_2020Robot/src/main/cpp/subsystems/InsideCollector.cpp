@@ -33,7 +33,6 @@ void InsideCollector::InsideCollectorInit() {
     OpenOneMotor* OpenICMotor = new OpenOneMotor();
     ICMotor = OpenICMotor->Open(insideCollector);
     OCMotor = OpenICMotor->Open(outsideCollector);
-    OCMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, insideCollector);
     TriggerMotor = OpenICMotor->Open(triggerMotor);
     FlywheelMotor = OpenICMotor->Open(flywheelMotor);
     GroundwheelMotor = OpenICMotor->Open(groundwheelmotor);
@@ -44,6 +43,9 @@ void InsideCollector::InsideCollectorInit() {
     GroundwheelMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, flywheelMotor);
     GroundwheelMotor->SetInverted(true);
     FlywheelMotor->SetInverted(true);
+}
+void InsideCollector::OutsideMotor(double speed) {
+    OCMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
 }
 
 void InsideCollector::TransMotor(double speed) {
@@ -60,10 +62,16 @@ void InsideCollector::Flywheel(double speed) {
 
 void InsideCollector::Collection() {
     TransMotor(ICCollectSpeed);
-    if (!collectorLimit.Get()) {
+    OutsideMotor(OCCollectSpeed);
+    if (!collectorLimit.Get() && passes >= 12) {
         Trigger(0);
     }
+    else if (!collectorLimit.Get()){
+        passes = passes + 1;
+        Trigger(TriggerCollectSpeed);
+    }
     else {
+        passes = 0;
         Trigger(TriggerCollectSpeed);
     }
 
@@ -75,12 +83,14 @@ void InsideCollector::Shooting(double speed) {
     if (-FlywheelMotor->GetSensorCollection().GetQuadratureVelocity()>(speed-error)) {
         Trigger(TriggerCollectSpeed);
         TransMotor(ICCollectSpeed);
+        OutsideMotor(OCCollectSpeed);
 
     }
     else {
         
         Trigger(0.0);
         TransMotor(0.0);
+        OutsideMotor(0.0);
     }
     std::cout << FlywheelMotor->GetSensorCollection().GetQuadratureVelocity();
 }
@@ -88,5 +98,6 @@ void InsideCollector::Shooting(double speed) {
 void InsideCollector::Spitting() {
     Trigger(TriggerSpitSpeed);
     TransMotor(ICSpitSpeed);
+    OutsideMotor(OCSpitSpeed);
     Flywheel(0.0);
 }

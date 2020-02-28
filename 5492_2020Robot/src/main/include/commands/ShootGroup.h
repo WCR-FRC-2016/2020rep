@@ -5,15 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ShootAuto.h"
-#include "commands/AutoMove.h"
-#include "RobotMap.h"
-#include "frc/Timer.h"
-// NOTE:  Consider using this command inline, rather than writing a subclass.
-// For more information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-ShootAuto::ShootAuto(DriveBase* drivebase, Turret* turret, InsideCollector* ic) {
-  // Add your commands here, e.g.
-  // AddCommands(FooCommand(), BarCommand());
-  
-}
+#pragma once
+
+#include <frc2/command/CommandHelper.h>
+#include <frc2/command/ParallelRaceGroup.h>
+#include "subsystems/InsideCollector.h"
+#include <frc2/command/InstantCommand.h>
+#include <RobotMap.h>
+class ShootGroup 
+    : public frc2::CommandHelper<frc2::ParallelRaceGroup,
+                                 ShootGroup> {
+ public:
+  ShootGroup(InsideCollector* IC);
+private:
+  InsideCollector m_IC;
+  frc2::InstantCommand m_shoot{[this] {m_IC.Shooting(ShootingSpeed);}, {&m_IC} };
+};

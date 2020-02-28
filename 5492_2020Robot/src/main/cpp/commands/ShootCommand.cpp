@@ -5,29 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/BallCollectorDefault.h"
-
-
-BallCollectorDefault::BallCollectorDefault(InsideCollector* insidecollector) : m_insidecollector{insidecollector}{
-  // Use AddRequirements() here to declare subsystem dependencies.
-  AddRequirements({insidecollector});
+#include "commands/ShootCommand.h"
+#include "RobotMap.h"
+ShootCommand::ShootCommand(InsideCollector* IC):m_IC{IC} {
+  // Use addRequirements() here to declare subsystem dependencies.
 }
 
 // Called when the command is initially scheduled.
-void BallCollectorDefault::Initialize() {}
+void ShootCommand::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void BallCollectorDefault::Execute() {
-  
-  m_insidecollector->TransMotor(0.0);
-  m_insidecollector->Trigger(0.0);
-  m_insidecollector->Flywheel(0.0);
-  m_insidecollector->OutsideMotor(0.0);
-
+void ShootCommand::Execute() {
+  m_IC->Shooting(ShootingSpeed);
 }
 
 // Called once the command ends or is interrupted.
-void BallCollectorDefault::End(bool interrupted) {}
+void ShootCommand::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool BallCollectorDefault::IsFinished() { return false; }
+bool ShootCommand::IsFinished() { return false; }

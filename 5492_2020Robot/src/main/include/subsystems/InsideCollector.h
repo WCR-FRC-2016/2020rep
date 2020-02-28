@@ -24,13 +24,17 @@ class InsideCollector : public frc2::SubsystemBase {
   void Collection();
   void Shooting(double speed);
   void Spitting();
+  void OutsideMotor(double speed);
 
  private:
  bool Init = false;
  double ICCollectSpeed = -0.5;
  double TriggerCollectSpeed = 0.5;
  double ICSpitSpeed = 0.5;
+ double OCSpitSpeed = 0.5;
+ double OCCollectSpeed = -.35;
  double TriggerSpitSpeed = -0.5;
+ int passes = 0;
  
  double error = 1000;
   // Components (e.g. motor controllers and sensors) should generally be

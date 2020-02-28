@@ -11,9 +11,9 @@
 #include <cscore_oo.h>
 #include <cameraserver/CameraServer.h>
 void Robot::RobotInit() {
-  cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
+  //cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
     
-  camera.SetVideoMode(cs::VideoMode::kYUYV, 640, 360, 30);
+  //camera.SetVideoMode(cs::VideoMode::kYUYV, 640, 360, 30);
  
 }
 

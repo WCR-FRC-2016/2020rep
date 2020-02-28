@@ -59,16 +59,22 @@ void Turret::ManualyAxis (double y)
 //
 //
 void Turret::AutoxAxis(double position){
-	double difference = xTurretMotor->GetSelectedSensorPosition() - position;
+	double difference =  position - xTurretMotor->GetSelectedSensorPosition();
 	double parsedSpeed = (difference>yTurretError)?xTurretP * difference:0.0;
-	parsedSpeed = (parsedSpeed >0)?parsedSpeed + xTurretMin:parsedSpeed - xTurretMin;
+	parsedSpeed = (parsedSpeed > 0 && parsedSpeed)?parsedSpeed + xTurretMin:parsedSpeed - xTurretMin;
 	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
 }
+double Turret::returnxPositon(){
+	return xTurretMotor->GetSelectedSensorPosition();
+}
 void Turret::AutoyAxis(double position){
-	double difference = yTurretMotor->GetSelectedSensorPosition() - position;
+	double difference = position - yTurretMotor->GetSelectedSensorPosition();
 	double parsedSpeed = (difference>yTurretError)?yTurretP * difference + yTurretMin:0.0;
 	parsedSpeed = (parsedSpeed >0)?parsedSpeed + yTurretMin:parsedSpeed - yTurretMin;
 	yTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
+}	
+double Turret::returnyPosition(){
+	return yTurretMotor->GetSelectedSensorPosition();
 }
 void Turret::SwapLedMode(int mode)	{
 	//1 is off, 3 is on

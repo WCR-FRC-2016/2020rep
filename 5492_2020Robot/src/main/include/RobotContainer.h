@@ -25,7 +25,7 @@
 #include "Robotmap.h"
 #include "commands/Baseline.h"
 #include <frc/smartdashboard/SendableChooser.h>
-
+#include "commands/ShootingAuto.h"
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -51,7 +51,7 @@ class RobotContainer {
 
   frc::SendableChooser<frc2::Command*> m_chooser;
   Baseline m_baseLine{&m_driveBase};
-
+  ShootingAuto m_shootingAuto{&m_driveBase, &m_insideCollector, &m_turret};
   frc2::InstantCommand m_TrackX{[this] {return m_turret.ISee();} , {&m_turret} };
   frc2::Button m_manY{[&] {return m_manStick.GetYButton();}};
 
