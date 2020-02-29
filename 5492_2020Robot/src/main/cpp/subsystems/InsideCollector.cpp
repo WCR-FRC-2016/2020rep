@@ -63,15 +63,11 @@ void InsideCollector::Flywheel(double speed) {
 void InsideCollector::Collection() {
     TransMotor(ICCollectSpeed);
     OutsideMotor(OCCollectSpeed);
-    if (!collectorLimit.Get() && passes >= 12) {
+    if (!collectorLimit.Get()) {
         Trigger(0);
     }
-    else if (!collectorLimit.Get()){
-        passes = passes + 1;
-        Trigger(TriggerCollectSpeed);
-    }
-    else {
-        passes = 0;
+    else{
+
         Trigger(TriggerCollectSpeed);
     }
 

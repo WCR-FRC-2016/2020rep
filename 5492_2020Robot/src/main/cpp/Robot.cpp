@@ -10,6 +10,7 @@
 #include <frc2/command/CommandScheduler.h>
 #include <cscore_oo.h>
 #include <cameraserver/CameraServer.h>
+#include <frc/shuffleboard/Shuffleboard.h>
 void Robot::RobotInit() {
   //cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
     
@@ -25,7 +26,9 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
+void Robot::RobotPeriodic() { 
+  
+  frc2::CommandScheduler::GetInstance().Run(); }
 
 /**
  * This function is called once each time the robot enters Disabled mode. You

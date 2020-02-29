@@ -13,10 +13,13 @@
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 #include "VisionerCornerFinder.h"
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 Turret::Turret() 
 {
     table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+	
 }
 
 // This method will be called once per scheduler run
@@ -38,6 +41,8 @@ void Turret::TurretInit()
 	xTurretMotor->SetSelectedSensorPosition(0);
 	yTurretMotor->SetSelectedSensorPosition(0);
 	table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+	frc::Shuffleboard::GetTab("Numbers").Add("Hood",yTurretMotor->GetSelectedSensorPosition());
+	nt::NetworkTableInstance::GetDefault().GetTable("dataTable");
     init = true;
 
 }
@@ -54,14 +59,19 @@ void Turret::ManualyAxis (double y)
 {
 	y = (yTurretMotor->GetSelectedSensorPosition() > 700 && (y<0))?0:y;
     yTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, y);
+	 frc::Shuffleboard::GetTab("Numbers").Add("Hood",yTurretMotor->GetSelectedSensorPosition());
+	 frc::SmartDashboard::PutNumber("HoodValue", yTurretMotor->GetSelectedSensorPosition());
+
 }
 //Vision
 //
 //
 void Turret::AutoxAxis(double position){
 	double difference =  position - xTurretMotor->GetSelectedSensorPosition();
-	double parsedSpeed = (difference>yTurretError)?xTurretP * difference:0.0;
-	parsedSpeed = (parsedSpeed > 0 && parsedSpeed)?parsedSpeed + xTurretMin:parsedSpeed - xTurretMin;
+	double parsedSpeed = (abs(difference*100)/100>xTurretError)?xTurretP * difference:0.0;
+	if (abs(100*difference)/100 > xTurretError){
+		parsedSpeed = (parsedSpeed > 0)?parsedSpeed + xTurretMin:parsedSpeed - xTurretMin;
+	}
 	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
 }
 double Turret::returnxPositon(){
@@ -69,9 +79,19 @@ double Turret::returnxPositon(){
 }
 void Turret::AutoyAxis(double position){
 	double difference = position - yTurretMotor->GetSelectedSensorPosition();
-	double parsedSpeed = (difference>yTurretError)?yTurretP * difference + yTurretMin:0.0;
+	double parsedSpeed = (abs(100*difference)/100>yTurretError)?yTurretP * difference:0.0;
+	// gearing makes negative going out, but positive clicks is going out
+	parsedSpeed = -parsedSpeed;
+	if (abs(100*difference)/100 > yTurretError){
+		parsedSpeed = (parsedSpeed >0)?parsedSpeed + yTurretMin:parsedSpeed - yTurretMin;
+	}
 	parsedSpeed = (parsedSpeed >0)?parsedSpeed + yTurretMin:parsedSpeed - yTurretMin;
+	if(yTurretMotor->GetSelectedSensorPosition() > 700)
+	{
+		parsedSpeed = 0;
+	}
 	yTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
+	frc::Shuffleboard::GetTab("Numbers").Add("Hood",yTurretMotor->GetSelectedSensorPosition());
 }	
 double Turret::returnyPosition(){
 	return yTurretMotor->GetSelectedSensorPosition();

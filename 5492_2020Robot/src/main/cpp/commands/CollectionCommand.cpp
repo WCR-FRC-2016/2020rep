@@ -5,25 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoMove.h"
+#include "commands/CollectionCommand.h"
 
-AutoMove::AutoMove(DriveBase* drivebase, double speed): m_drivebase{drivebase}, m_speed{speed} {
+CollectionCommand::CollectionCommand(InsideCollector* IC): m_IC{IC} {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({drivebase});
+  AddRequirements({IC});
 }
 
 // Called when the command is initially scheduled.
-void AutoMove::Initialize() {
-
-}
+void CollectionCommand::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void AutoMove::Execute() {
-  m_drivebase->ArcadeDrive(0,m_speed);
+void CollectionCommand::Execute() {
+  m_IC->Collection();
 }
 
 // Called once the command ends or is interrupted.
-void AutoMove::End(bool interrupted) {}
+void CollectionCommand::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoMove::IsFinished() { return false; }
+bool CollectionCommand::IsFinished() { return false; }

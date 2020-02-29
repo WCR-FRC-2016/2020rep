@@ -9,8 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include <subsystems/DriveBase.h>
-#include <frc/DriverStation.h>
+#include "subsystems/TaxCollector.h"
 /**
  * An example command.
  *
@@ -18,10 +17,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AutoMove
-    : public frc2::CommandHelper<frc2::CommandBase, AutoMove> {
+class StateChangeCommand
+    : public frc2::CommandHelper<frc2::CommandBase, StateChangeCommand> {
  public:
-  AutoMove(DriveBase* drivebase, double speed);
+  StateChangeCommand(TaxCollector* TC);
 
   void Initialize() override;
 
@@ -30,9 +29,6 @@ class AutoMove
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-private:
-  DriveBase* m_drivebase;
-  double m_clicks;
-  double m_speed;
-  std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+  private:
+  TaxCollector* m_TC;
 };

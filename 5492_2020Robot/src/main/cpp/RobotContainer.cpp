@@ -20,12 +20,14 @@
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
 m_chooser.SetDefaultOption("Baseline", &m_baseLine);
-m_chooser.AddOption("Shooting Straight", &m_shootingAuto);
+m_chooser.AddOption("Shooting Straight", &m_shootingAuto );
+m_chooser.AddOption("Shoot Standing",&m_standShootAuto);
+m_chooser.AddOption("Trench Run Auto",&m_tenchAuto);
 
 frc::Shuffleboard::GetTab("Autonomous").Add(m_chooser);
 
 m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
-  [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);},
+  [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);} ,
   [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
   ));
 
@@ -49,7 +51,7 @@ void RobotContainer::ConfigureButtonBindings() {
     m_driverB.WhenPressed(m_reverseDrive);
     m_driverY.WhenPressed(m_slowDrive);
 
-    m_driverRT.WhenHeld(m_Extend);
+    m_driverRT.WhileHeld(m_Extend);
     m_driverStart.WhileHeld(m_Delatch);
     m_driverBack.WhileHeld(m_Latch);
     m_driverLT.WhileHeld(m_Lift);
@@ -61,6 +63,7 @@ void RobotContainer::ConfigureButtonBindings() {
     m_manB.WhileHeld(m_spit);
     m_manX.WhenPressed(m_stateChange);
     m_manY.WhileHeld(m_TrackX);
+    m_manRBumper.WhileHeld(m_halfHood);
   
   
 }

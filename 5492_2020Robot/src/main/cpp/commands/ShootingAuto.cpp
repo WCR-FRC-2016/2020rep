@@ -20,5 +20,6 @@ ShootingAuto::ShootingAuto(DriveBase* drivebase, InsideCollector* IC, Turret* tu
   // AddCommands(FooCommand(), BarCommand());
   AddCommands(frc2::ParallelDeadlineGroup{AutoxTurret(turret, -90), Baseline(drivebase) },
   frc2::ParallelCommandGroup(AutoAim(turret), ShootGroup(IC))
+ 
   );
 }

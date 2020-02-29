@@ -5,25 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoMove.h"
+#include "commands/StateChangeCommand.h"
 
-AutoMove::AutoMove(DriveBase* drivebase, double speed): m_drivebase{drivebase}, m_speed{speed} {
+StateChangeCommand::StateChangeCommand(TaxCollector* TC):m_TC{TC} {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({drivebase});
+  AddRequirements({TC});
 }
 
 // Called when the command is initially scheduled.
-void AutoMove::Initialize() {
-
-}
+void StateChangeCommand::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void AutoMove::Execute() {
-  m_drivebase->ArcadeDrive(0,m_speed);
+void StateChangeCommand::Execute() {
+  m_TC->StateChange();
 }
 
 // Called once the command ends or is interrupted.
-void AutoMove::End(bool interrupted) {}
+void StateChangeCommand::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoMove::IsFinished() { return false; }
+bool StateChangeCommand::IsFinished() { return false; }

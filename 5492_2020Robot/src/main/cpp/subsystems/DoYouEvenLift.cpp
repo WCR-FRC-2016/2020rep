@@ -17,14 +17,15 @@ void DoYouEvenLift::LiftInit() {
     LiftMasterMotor = OpenMotor->Open(liftMaster);
     LiftApprentinceMotor = OpenMotor->Open(liftApprentice);
     LiftApprentinceMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, liftMaster);
+    LiftApprentinceMotor->SetInverted(true);
     init = true;
 }
 void DoYouEvenLift::Lift(){
-    LiftMasterMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+    LiftMasterMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -1.0);
 
 }
 void DoYouEvenLift::Extend(){
-    LiftMasterMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.5);
+    LiftMasterMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
 
 }
 void DoYouEvenLift::Latch(){

@@ -26,6 +26,8 @@
 #include "commands/Baseline.h"
 #include <frc/smartdashboard/SendableChooser.h>
 #include "commands/ShootingAuto.h"
+#include "commands/StandShootAuto.h"
+#include "commands/TenchAuto.h"
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -52,6 +54,8 @@ class RobotContainer {
   frc::SendableChooser<frc2::Command*> m_chooser;
   Baseline m_baseLine{&m_driveBase};
   ShootingAuto m_shootingAuto{&m_driveBase, &m_insideCollector, &m_turret};
+  StandShootAuto m_standShootAuto{& m_turret, &m_insideCollector, &m_driveBase};
+  TenchAuto m_tenchAuto{&m_driveBase, &m_insideCollector, &m_collector, &m_turret};
   frc2::InstantCommand m_TrackX{[this] {return m_turret.ISee();} , {&m_turret} };
   frc2::Button m_manY{[&] {return m_manStick.GetYButton();}};
 
@@ -83,6 +87,7 @@ class RobotContainer {
   frc2::Button m_manStart{[&]{return m_manStick.GetStartButton();} };
   frc2::InstantCommand m_fastshoot{[this] {m_insideCollector.Shooting(FastShootingSpeed);}, {&m_insideCollector} };
   frc2::InstantCommand m_halfHood{[this] {m_turret.AutoyAxis(300);}, {&m_turret} };
+  frc2::Button m_manRBumper{[&]{return m_manStick.GetBumperPressed(frc::GenericHID::kRightHand);} }; 
 
   frc2::Button m_manX{[&] {return m_manStick.GetXButtonPressed();} };
   frc2::InstantCommand m_stateChange{[this] {m_collector.StateChange(); }, {&m_collector} };

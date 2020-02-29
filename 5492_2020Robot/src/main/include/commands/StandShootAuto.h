@@ -5,13 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Baseline.h"
-#include "commands/AutoMove.h"
-// NOTE:  Consider using this command inline, rather than writing a subclass.
-// For more information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-Baseline::Baseline(DriveBase* drivebase) {
-  // Add your commands here, e.g.
-  // AddCommands(FooCommand(), BarCommand());
-  AddCommands(AutoMove(drivebase, 0.2).WithTimeout(1_s));
-}
+#pragma once
+
+#include <frc2/command/CommandHelper.h>
+#include <frc2/command/SequentialCommandGroup.h>
+#include "subsystems/Turret.h"
+#include "subsystems/InsideCollector.h"
+#include "subsystems/DriveBase.h"
+class StandShootAuto
+    : public frc2::CommandHelper<frc2::SequentialCommandGroup,
+                                 StandShootAuto> {
+ public:
+  StandShootAuto(Turret* turret, InsideCollector* InsideCollector, DriveBase* drivebase);
+};

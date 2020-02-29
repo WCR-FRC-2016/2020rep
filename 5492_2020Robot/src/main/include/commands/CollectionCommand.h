@@ -9,8 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include <subsystems/DriveBase.h>
-#include <frc/DriverStation.h>
+#include "subsystems/InsideCollector.h"
 /**
  * An example command.
  *
@@ -18,10 +17,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AutoMove
-    : public frc2::CommandHelper<frc2::CommandBase, AutoMove> {
+class CollectionCommand
+    : public frc2::CommandHelper<frc2::CommandBase, CollectionCommand> {
  public:
-  AutoMove(DriveBase* drivebase, double speed);
+  CollectionCommand(InsideCollector* IC);
 
   void Initialize() override;
 
@@ -30,9 +29,7 @@ class AutoMove
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-private:
-  DriveBase* m_drivebase;
-  double m_clicks;
-  double m_speed;
-  std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+  private:
+  InsideCollector* m_IC;
 };
+
