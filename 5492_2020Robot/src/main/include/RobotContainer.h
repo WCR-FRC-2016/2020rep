@@ -87,7 +87,7 @@ class RobotContainer {
   frc2::Button m_manStart{[&]{return m_manStick.GetStartButton();} };
   frc2::InstantCommand m_fastshoot{[this] {m_insideCollector.Shooting(FastShootingSpeed);}, {&m_insideCollector} };
   frc2::InstantCommand m_halfHood{[this] {m_turret.AutoyAxis(300);}, {&m_turret} };
-  frc2::Button m_manRBumper{[&]{return m_manStick.GetBumperPressed(frc::GenericHID::kRightHand);} }; 
+  frc2::Button m_manLBumper{[&]{return m_manStick.GetBumper(frc::GenericHID::kLeftHand);} }; 
 
   frc2::Button m_manX{[&] {return m_manStick.GetXButtonPressed();} };
   frc2::InstantCommand m_stateChange{[this] {m_collector.StateChange(); }, {&m_collector} };

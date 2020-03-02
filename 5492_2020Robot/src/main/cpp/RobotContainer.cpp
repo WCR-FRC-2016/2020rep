@@ -63,7 +63,7 @@ void RobotContainer::ConfigureButtonBindings() {
     m_manB.WhileHeld(m_spit);
     m_manX.WhenPressed(m_stateChange);
     m_manY.WhileHeld(m_TrackX);
-    m_manRBumper.WhileHeld(m_halfHood);
+    m_manLBumper.WhileHeld(m_halfHood);
   
   
 }

@@ -10,6 +10,7 @@
 #include "commands/ShootCommand.h"
 #include "commands/AutoxTurret.h"
 #include "commands/AutoAimCommand.h"
+#include "commands/AutoyTurret.h"
 #include "commands/AutoMove.h"
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
@@ -18,6 +19,7 @@ StandShootAuto::StandShootAuto(Turret* turret, InsideCollector* IC, DriveBase* d
   // AddCommands(FooCommand(), BarCommand());
   AddCommands(frc2::ParallelRaceGroup{AutoxTurret(turret, -90)}.WithTimeout(3_s),
   frc2::ParallelRaceGroup{AutoAimCommand(turret)}.WithTimeout(1.5_s),
+  frc2::ParallelRaceGroup{AutoyTurret(turret, 200)}.WithTimeout(1_s),
   frc2::ParallelRaceGroup{ShootCommand(IC)}.WithTimeout(1_s),
   frc2::ParallelRaceGroup{ShootCommand(IC)}.WithTimeout(4_s),
   frc2::ParallelRaceGroup{AutoMove(drivebase, 0.2)}.WithTimeout(2_s) 
