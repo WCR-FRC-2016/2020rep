@@ -43,6 +43,12 @@ void InsideCollector::InsideCollectorInit() {
     GroundwheelMotor->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, flywheelMotor);
     GroundwheelMotor->SetInverted(true);
     FlywheelMotor->SetInverted(true);
+    //
+    // Hack to override the 15 Amp for 1-second current limit which is set by OpenOneMotor
+    // This changes it from 15 Amps to 50 Amps for the two flywheel motors
+    GroundwheelMotor->ConfigPeakCurrentLimit(50, 0);
+    FlywheelMotor->ConfigPeakCurrentLimit(50, 0);
+ 
 }
 void InsideCollector::OutsideMotor(double speed) {
     OCMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
