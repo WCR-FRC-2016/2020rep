@@ -131,10 +131,10 @@ void Turret::ISee(){
 	double offSetX = ReturnVisionX()[2]; 
 	double offSetY = ReturnVisionX()[3];
 	double parsedSpeedX = offSetX * xTurretVisionP + .025;
-	//double parsedPositionY = offSetY * yTurretP;
+	double parsedPositionY = (-1.7899*pow(offSetY,2))-(9.68245*offSetY)+854.435;
 	parsedSpeedX = (parsedSpeedX > .05 || parsedSpeedX < -.05)?parsedSpeedX:0;
 	xTurretMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeedX);
-	//AutoyAxis(parsedPositionY);
+	AutoyAxis(parsedPositionY);
 }
 
 
