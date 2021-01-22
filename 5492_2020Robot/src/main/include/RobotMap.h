@@ -39,7 +39,7 @@ const int triggerMotor = 9; // Stage 2 Storage
 const int flywheelMotor = 2; // Upper Shooter Motor
 const int groundwheelmotor = 3; // Lower Shooter Motor
 
-const int RampTime = .5;
+const double RampTime = 0.375;
 const double RightP = 0.0678;
 const double RightI = 6.78E-6;
 const double RightD = 0;
