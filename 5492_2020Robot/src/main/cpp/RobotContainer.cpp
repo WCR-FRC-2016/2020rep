@@ -23,6 +23,7 @@ m_chooser.SetDefaultOption("Baseline", &m_baseLine);
 m_chooser.AddOption("Shooting Straight", &m_shootingAuto );
 m_chooser.AddOption("Shoot Standing",&m_standShootAuto);
 m_chooser.AddOption("Trench Run Auto",&m_tenchAuto);
+m_chooser.AddOption("Robin Square",&m_robinSquare);
 
 frc::Shuffleboard::GetTab("Autonomous").Add(m_chooser);
 

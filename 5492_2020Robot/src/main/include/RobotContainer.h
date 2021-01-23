@@ -30,6 +30,7 @@
 #include "commands/ShootingAuto.h"
 #include "commands/StandShootAuto.h"
 #include "commands/TenchAuto.h"
+#include "commands/RobinSquare.h"
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -58,6 +59,7 @@ class RobotContainer {
   ShootingAuto m_shootingAuto{&m_driveBase, &m_insideCollector, &m_turret};
   StandShootAuto m_standShootAuto{& m_turret, &m_insideCollector, &m_driveBase};
   TenchAuto m_tenchAuto{&m_driveBase, &m_insideCollector, &m_collector, &m_turret};
+  RobinSquare m_robinSquare{&m_driveBase};
 
   frc::XboxController m_driverStick{0};
   frc::XboxController m_manStick{1};

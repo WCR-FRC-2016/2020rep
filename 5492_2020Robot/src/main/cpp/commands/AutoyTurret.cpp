@@ -24,4 +24,4 @@ void AutoyTurret::Execute() {
 void AutoyTurret::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoyTurret::IsFinished() { (m_turret->returnyPosition() < m_position + yTurretError && m_turret->returnyPosition() > m_position - yTurretError); }
+bool AutoyTurret::IsFinished() { return (m_turret->returnyPosition() < m_position + yTurretError && m_turret->returnyPosition() > m_position - yTurretError); }

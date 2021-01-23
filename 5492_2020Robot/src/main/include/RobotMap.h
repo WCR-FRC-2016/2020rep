@@ -61,7 +61,7 @@ const double FastShootingSpeed = 20000;
 const double pivotSpeedUp = 1 ;
 const double pivotSpeedDown = -0.5;
 const double pivotCurrentLimit = 3;
-;
+
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other
