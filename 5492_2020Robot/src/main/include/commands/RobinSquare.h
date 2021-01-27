@@ -8,10 +8,10 @@
 #pragma once
 
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/ParallelRaceGroup.h>
+#include <frc2/command/SequentialCommandGroup.h>
 #include "subsystems/DriveBase.h"
 class RobinSquare
-    : public frc2::CommandHelper<frc2::ParallelRaceGroup,
+    : public frc2::CommandHelper<frc2::SequentialCommandGroup,
                                  RobinSquare> {
  public:
   RobinSquare(DriveBase* drivebase);

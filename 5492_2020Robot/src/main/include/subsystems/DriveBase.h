@@ -8,6 +8,17 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <ctre/Phoenix.h>
+#include <frc/Joystick.h>
+#include <frc/RobotDrive.h>
+#include <frc/drive/DifferentialDrive.h>
+
+WPI_TalonSRX * FrontL;
+WPI_TalonSRX * FrontR;
+WPI_TalonSRX * BackL; 
+WPI_TalonSRX * BackR;
+
+frc::DifferentialDrive * _diffDrive;
 
 class DriveBase : public frc2::SubsystemBase {
  public:

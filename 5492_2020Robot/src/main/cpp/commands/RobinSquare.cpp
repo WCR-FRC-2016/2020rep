@@ -6,19 +6,20 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/RobinSquare.h"
-#include "commands/ArcadeDrive.h"
+#include <frc2/command/ParallelRaceGroup.h>
+#include "commands/AutoMove.h"
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 RobinSquare::RobinSquare(DriveBase* drivebase) {
   // Add your commands here, e.g.
-  // AddCommands(FooCommand(), BarCommand());
-  AddCommands(ArcadeDrive(drivebase, [this] {return 0.0;}, [this] {return 0.2;}).WithTimeout(1_s),
-              ArcadeDrive(drivebase, [this] {return 0.2;}, [this] {return 0.1;}).WithTimeout(1_s),
-              ArcadeDrive(drivebase, [this] {return 0.0;}, [this] {return 0.2;}).WithTimeout(1_s),
-              ArcadeDrive(drivebase, [this] {return 0.2;}, [this] {return 0.1;}).WithTimeout(1_s),
-              ArcadeDrive(drivebase, [this] {return 0.0;}, [this] {return 0.2;}).WithTimeout(1_s),
-              ArcadeDrive(drivebase, [this] {return 0.2;}, [this] {return 0.1;}).WithTimeout(1_s),
-              ArcadeDrive(drivebase, [this] {return 0.0;}, [this] {return 0.2;}).WithTimeout(1_s),
-              ArcadeDrive(drivebase, [this] {return 0.2;}, [this] {return 0.1;}).WithTimeout(1_s));
+  // AddCommands(FooCommand(), BarCommand()); 
+AddCommands(/*frc2::ParallelRaceGroup{AutoMove(drivebase, 0.2, 0.0)}.WithTimeout(1_s),
+frc2::ParallelRaceGroup{AutoMove(drivebase, 0.1, 0.2)}.WithTimeout(1_s),
+frc2::ParallelRaceGroup{AutoMove(drivebase, 0.2, 0.0)}.WithTimeout(1_s),
+frc2::ParallelRaceGroup{AutoMove(drivebase, 0.1, 0.2)}.WithTimeout(1_s),
+frc2::ParallelRaceGroup{AutoMove(drivebase, 0.2, 0.0)}.WithTimeout(1_s),
+frc2::ParallelRaceGroup{AutoMove(drivebase, 0.1, 0.2)}.WithTimeout(1_s),
+frc2::ParallelRaceGroup{AutoMove(drivebase, 0.2, 0.0)}.WithTimeout(1_s),
+frc2::ParallelRaceGroup{AutoMove(drivebase, 0.1, 0.2)}.WithTimeout(1_s)*/);
 }

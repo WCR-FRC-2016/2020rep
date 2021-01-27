@@ -5,33 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoMove.h"
+#include "commands/DriveStraight.h"
+#include <ctre/Phoenix.h>
 
-AutoMove::AutoMove(DriveBase* drivebase, double speed): m_drivebase{drivebase}, m_speed{speed} {
-  // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({drivebase});
-
-  m_rotation = 0.0;
-}
-
-AutoMove::AutoMove(DriveBase* drivebase, double speed, double rotation): m_drivebase{drivebase}, m_speed{speed}, m_rotation{rotation} {
+DriveStraight::DriveStraight(DriveBase* drivebase, double distance): m_drivebase{drivebase}, m_distance{distance} {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({drivebase});
 }
 
 // Called when the command is initially scheduled.
-void AutoMove::Initialize() {
+void DriveStraight::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AutoMove::Execute() {
-  m_drivebase->ArcadeDrive(m_rotation,m_speed);
-//printf("AutoMove-Execute\n");
+void DriveStraight::Execute() {
+  //m_drivebase->ArcadeDrive(m_rotation,m_distance);
+  double goal = m_distance*20000;
+  FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::Position, goal);
+  FrontR->Set(ctre::phoenix::motorcontrol::ControlMode::Position, goal);
+  BackL->Set(ctre::phoenix::motorcontrol::ControlMode::Position, goal);
+  BackR->Set(ctre::phoenix::motorcontrol::ControlMode::Position, goal);
+//printf("DriveStraight-Execute\n");
 }
 
 // Called once the command ends or is interrupted.
-void AutoMove::End(bool interrupted) {}
+void DriveStraight::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoMove::IsFinished() { return false; }
+bool DriveStraight::IsFinished() { return false; }

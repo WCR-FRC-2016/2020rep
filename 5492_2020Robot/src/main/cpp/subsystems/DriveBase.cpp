@@ -7,16 +7,6 @@
 
 #include "subsystems/DriveBase.h"
 #include "RobotMap.h"
-#include <ctre/Phoenix.h>
-#include <frc/Joystick.h>
-#include <frc/RobotDrive.h>
-#include <frc/drive/DifferentialDrive.h>
-
-WPI_TalonSRX * FrontL;
-WPI_TalonSRX * FrontR;
-WPI_TalonSRX * BackL; 
-WPI_TalonSRX * BackR;
-frc::DifferentialDrive * _diffDrive;
 
 DriveBase::DriveBase() {
 	
@@ -34,7 +24,7 @@ void DriveBase::DriveBaseInit() {
 		FrontL->ConfigFactoryDefault();
 		BackR->ConfigFactoryDefault();
 		BackL->ConfigFactoryDefault();
-
+//Inverting motors: two motors on a single gear have to drive oppisite directions.
 		FrontR->SetInverted(true);
 		FrontL->SetInverted(false);
 		BackR->SetInverted(true);

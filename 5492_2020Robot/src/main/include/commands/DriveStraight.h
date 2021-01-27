@@ -18,11 +18,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AutoMove
-    : public frc2::CommandHelper<frc2::CommandBase, AutoMove> {
+class DriveStraight
+    : public frc2::CommandHelper<frc2::CommandBase, DriveStraight> {
  public:
-  AutoMove(DriveBase* drivebase, double speed);
-  AutoMove(DriveBase* drivebase, double speed, double rotation);
+  DriveStraight(DriveBase* drivebase, double distance);
 
   void Initialize() override;
 
@@ -34,7 +33,6 @@ class AutoMove
 private:
   DriveBase* m_drivebase;
   double m_clicks;
-  double m_speed;
-  double m_rotation;
+  double m_distance;
   std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 };
