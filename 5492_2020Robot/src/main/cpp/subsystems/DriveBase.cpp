@@ -20,6 +20,7 @@ void DriveBase::DriveBaseInit() {
 		BackR = new WPI_TalonSRX (backRightDrive);
 		_diffDrive = new frc::DifferentialDrive(*FrontL, *FrontR);
 
+		
 		FrontR->ConfigFactoryDefault();
 		FrontL->ConfigFactoryDefault();
 		BackR->ConfigFactoryDefault();
@@ -86,7 +87,8 @@ void DriveBase::DriveBaseInit() {
 
 	
 		_diffDrive->SetExpiration(.5);
-
+	    FrontL->ConfigMotionCruiseVelocity(1000);
+	    FrontL->ConfigMotionAcceleration(5);
 		BackL->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontLeftDrive);
 		BackR->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontRightDrive);
 		printf("Done setting up motor \n");
@@ -181,6 +183,27 @@ void DriveBase::ArcadeDrive(double xAxis, double yAxis) {
 	}
 	_diffDrive->TankDrive(-parsedLeft, parsedRight, false);
 
+}
+
+void DriveBase::setMotors (double left, double right) {
+	FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, left);
+	//BackL->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, left);
+	FrontR->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, right);
+	//BackR->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, right);
+}
+void DriveBase::AutoMotors (double position){
+	double difference =  position - FrontL->GetSelectedSensorPosition();
+	double parsedSpeed = (abs(difference*100)/100>driveBaseError)?driveBaseP * difference:0.0;
+	if (abs(100*difference)/100 > driveBaseError){
+		parsedSpeed = (parsedSpeed > 0)?parsedSpeed + driveBaseMin:parsedSpeed - driveBaseMin;
+	}
+	printf("AutoMotors");
+	//printf(static_cast<char*>(parsedSpeed));
+	//printf(static_cast<char*>(FrontL->GetSelectedSensorPosition()));
+	FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
+}
+double DriveBase::returnPosition (){
+	return FrontL->GetSelectedSensorPosition();
 }
 
 void DriveBase::reverseDrive (bool bButton) {

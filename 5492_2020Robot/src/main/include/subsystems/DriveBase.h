@@ -13,13 +13,6 @@
 #include <frc/RobotDrive.h>
 #include <frc/drive/DifferentialDrive.h>
 
-WPI_TalonSRX * FrontL;
-WPI_TalonSRX * FrontR;
-WPI_TalonSRX * BackL; 
-WPI_TalonSRX * BackR;
-
-frc::DifferentialDrive * _diffDrive;
-
 class DriveBase : public frc2::SubsystemBase {
  public:
   DriveBase();
@@ -35,10 +28,21 @@ class DriveBase : public frc2::SubsystemBase {
   void slowDrive(bool yButton);
   void ResetEncoders();
   bool CheckEncoders(double clicks);
+
+  void setMotors(double left, double right);
+  void AutoMotors(double position);
+  double returnPosition();
  private:
   bool initialized = false;
   double driveConstant = -1;
   double speed = 1;
+  
+  WPI_TalonSRX * FrontL;
+  WPI_TalonSRX * FrontR;
+  WPI_TalonSRX * BackL; 
+  WPI_TalonSRX * BackR;
+  
+  frc::DifferentialDrive * _diffDrive;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

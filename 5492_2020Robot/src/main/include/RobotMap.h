@@ -12,6 +12,10 @@ const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
 
+const double driveBaseMin = 0.2;
+const double driveBaseError = 400;
+const double driveBaseP = 0.0001;
+
 const int liftMaster = 12;
 const int liftApprentice = 13;
 
