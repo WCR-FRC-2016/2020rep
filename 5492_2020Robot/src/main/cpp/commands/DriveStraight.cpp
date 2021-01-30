@@ -26,7 +26,8 @@ void DriveStraight::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveStraight::Execute() {
   //m_drivebase->ArcadeDrive(m_rotation,m_distance);
-  m_drivebase->AutoMotors(m_goal);
+  //m_drivebase->AutoMotors(m_goal);
+  m_drivebase->setMotors(m_goal,m_goal);
 	frc::Shuffleboard::GetTab("Numbers").Add("driveBasePosition",m_drivebase->returnPosition());
 //printf("DriveStraight-Execute\n");
 }

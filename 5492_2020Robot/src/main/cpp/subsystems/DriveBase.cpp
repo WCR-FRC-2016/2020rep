@@ -92,6 +92,13 @@ void DriveBase::DriveBaseInit() {
 		FrontR->SetSensorPhase(false);
 		FrontL->SetSensorPhase(false);
 
+		
+	    FrontL->ConfigMotionCruiseVelocity(1000);
+	    FrontL->ConfigMotionAcceleration(5);
+		
+	    FrontR->ConfigMotionCruiseVelocity(1000);
+	    FrontR->ConfigMotionAcceleration(5);
+
 
 		FrontR->ConfigPeakOutputForward(MaxOutput, 0);
 		FrontR->ConfigPeakOutputReverse(-MaxOutput, 0);
@@ -108,8 +115,6 @@ void DriveBase::DriveBaseInit() {
 
 	
 		_diffDrive->SetExpiration(.5);
-	    FrontL->ConfigMotionCruiseVelocity(1000);
-	    FrontL->ConfigMotionAcceleration(5);
 		BackL->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontLeftDrive);
 		BackR->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontRightDrive);
 		printf("Done setting up motor \n");
@@ -218,7 +223,7 @@ void DriveBase::AutoMotors (double position){
 	if (abs(100*difference)/100 > driveBaseError){
 		parsedSpeed = (parsedSpeed > 0)?parsedSpeed + driveBaseMin:parsedSpeed - driveBaseMin;
 	}
-	printf("AutoMotors");
+	//printf("AutoMotors");
 	//printf(static_cast<char*>(parsedSpeed));
 	//printf(static_cast<char*>(FrontL->GetSelectedSensorPosition()));
 	FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
