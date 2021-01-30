@@ -93,11 +93,11 @@ void DriveBase::DriveBaseInit() {
 		FrontL->SetSensorPhase(false);
 
 		
-	    FrontL->ConfigMotionCruiseVelocity(1000);
-	    FrontL->ConfigMotionAcceleration(5);
+	    FrontL->ConfigMotionCruiseVelocity(10000);
+	    FrontL->ConfigMotionAcceleration(7500);
 		
-	    FrontR->ConfigMotionCruiseVelocity(1000);
-	    FrontR->ConfigMotionAcceleration(5);
+	    FrontR->ConfigMotionCruiseVelocity(10000);
+	    FrontR->ConfigMotionAcceleration(7500);
 
 
 		FrontR->ConfigPeakOutputForward(MaxOutput, 0);
