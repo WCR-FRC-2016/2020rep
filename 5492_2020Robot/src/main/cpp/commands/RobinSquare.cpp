@@ -22,5 +22,5 @@ frc2::ParallelRaceGroup{AutoMove(drivebase, 0.2, 0.0)}.WithTimeout(1_s),
 frc2::ParallelRaceGroup{AutoMove(drivebase, 0.1, 0.2)}.WithTimeout(1_s),
 frc2::ParallelRaceGroup{AutoMove(drivebase, 0.2, 0.0)}.WithTimeout(1_s),
 frc2::ParallelRaceGroup{AutoMove(drivebase, 0.1, 0.2)}.WithTimeout(1_s));*/
-  AddCommands(DriveStraight(drivebase, 1.5));
+  AddCommands(DriveStraight(drivebase, 3));
 }

@@ -14,10 +14,10 @@ DriveBase::DriveBase() {
 
 void DriveBase::DriveBaseInit() {
     initialized = true;
-		FrontL = new WPI_TalonSRX (frontLeftDrive);
-		FrontR = new WPI_TalonSRX (frontRightDrive);
-		BackL = new WPI_TalonSRX (backLeftDrive);
-		BackR = new WPI_TalonSRX (backRightDrive);
+		FrontL = new WPI_TalonFX (frontLeftDrive);
+		FrontR = new WPI_TalonFX (frontRightDrive);
+		BackL = new WPI_TalonFX (backLeftDrive);
+		BackR = new WPI_TalonFX (backRightDrive);
 		_diffDrive = new frc::DifferentialDrive(*FrontL, *FrontR);
 
 		
@@ -31,6 +31,26 @@ void DriveBase::DriveBaseInit() {
 		BackR->SetInverted(true);
 		BackL->SetInverted(false);
 
+		// enabled, limit(amp), trigger threshold(amp), trigger time threshold (s)
+		StatorCurrentLimitConfiguration* stator_limit =
+		    new StatorCurrentLimitConfiguration(true, 0, 50, 1);
+		SupplyCurrentLimitConfiguration* supply_limit =
+		    new SupplyCurrentLimitConfiguration(true, 0, 50, 1);
+		
+		// Default limit of 0 seems mildly odd..
+
+		FrontL->ConfigStatorCurrentLimit(*stator_limit);
+		FrontR->ConfigStatorCurrentLimit(*stator_limit);
+		BackL->ConfigStatorCurrentLimit(*stator_limit);
+		BackR->ConfigStatorCurrentLimit(*stator_limit);
+
+		FrontL->ConfigSupplyCurrentLimit(*supply_limit);
+		FrontR->ConfigSupplyCurrentLimit(*supply_limit);
+		BackL->ConfigSupplyCurrentLimit(*supply_limit);
+		BackR->ConfigSupplyCurrentLimit(*supply_limit);
+
+		/*
+		// Old TalonSRX current limit setup, just in case
 		FrontR->ConfigPeakCurrentLimit(50,0);
 		FrontL->ConfigPeakCurrentLimit(50,0);
 		BackR->ConfigPeakCurrentLimit(50,0);
@@ -41,18 +61,19 @@ void DriveBase::DriveBaseInit() {
 		BackR->ConfigPeakCurrentDuration(1000,0);
 		BackL->ConfigPeakCurrentDuration(1000,0);
 
+		FrontR->EnableCurrentLimit(true);
+		FrontL->EnableCurrentLimit(true);
+		BackR->EnableCurrentLimit(true);
+		BackL->EnableCurrentLimit(true);
+		*/
+
 		FrontL->ConfigOpenloopRamp(RampTime, 0);
     	FrontR->ConfigOpenloopRamp(RampTime, 0);
    		BackL->ConfigOpenloopRamp(RampTime, 0);
     	BackR->ConfigOpenloopRamp(RampTime, 0);
 
-		FrontR->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
-		FrontL->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
-
-		FrontR->EnableCurrentLimit(true);
-		FrontL->EnableCurrentLimit(true);
-		BackR->EnableCurrentLimit(true);
-		BackL->EnableCurrentLimit(true);
+		FrontR->ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, 0);
+		FrontL->ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, 0);
 
 
 		//PID BTW

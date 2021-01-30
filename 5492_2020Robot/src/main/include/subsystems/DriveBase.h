@@ -37,10 +37,10 @@ class DriveBase : public frc2::SubsystemBase {
   double driveConstant = -1;
   double speed = 1;
   
-  WPI_TalonSRX * FrontL;
-  WPI_TalonSRX * FrontR;
-  WPI_TalonSRX * BackL; 
-  WPI_TalonSRX * BackR;
+  WPI_TalonFX * FrontL;
+  WPI_TalonFX * FrontR;
+  WPI_TalonFX * BackL; 
+  WPI_TalonFX * BackR;
   
   frc::DifferentialDrive * _diffDrive;
   // Components (e.g. motor controllers and sensors) should generally be
