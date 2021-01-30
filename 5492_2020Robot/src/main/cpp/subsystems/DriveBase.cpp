@@ -20,7 +20,7 @@ void DriveBase::DriveBaseInit() {
 		BackR = new WPI_TalonFX (backRightDrive);
 		_diffDrive = new frc::DifferentialDrive(*FrontL, *FrontR);
 
-		
+		//0s motors
 		FrontR->ConfigFactoryDefault();
 		FrontL->ConfigFactoryDefault();
 		BackR->ConfigFactoryDefault();
@@ -115,8 +115,10 @@ void DriveBase::DriveBaseInit() {
 
 	
 		_diffDrive->SetExpiration(.5);
-		BackL->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontLeftDrive);
-		BackR->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontRightDrive);
+		BackL->Follow(*FrontL);
+		BackR->Follow(*FrontR);
+		//BackL->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontLeftDrive);
+		//BackR->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontRightDrive);
 		printf("Done setting up motor \n");
 
 }
