@@ -18,7 +18,6 @@ DriveStraight::DriveStraight(DriveBase* drivebase, double distance): m_drivebase
 // Called when the command is initially scheduled.
 void DriveStraight::Initialize() {
     m_goal = m_distance*20000 + m_drivebase->returnPosition();
-  //double m_goal = m_distance*20000;
   //m_drivebase->setMotors(m_goal, m_goal);
   //m_drivebase->setMotors(10000,10000);
 }

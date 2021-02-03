@@ -93,11 +93,15 @@ void DriveBase::DriveBaseInit() {
 		FrontL->SetSensorPhase(false);
 
 		
-	    FrontL->ConfigMotionCruiseVelocity(10000);
-	    FrontL->ConfigMotionAcceleration(7500);
+		// Configure MotionMagic for froont motors (back motors are followers)
+	    FrontL->ConfigMotionCruiseVelocity(4096); // target velocity
+	    FrontL->ConfigMotionAcceleration(4096);   // max acceleration
+		FrontL->ConfigMotionSCurveStrength(4);    // strength of S curve..?
 		
-	    FrontR->ConfigMotionCruiseVelocity(10000);
-	    FrontR->ConfigMotionAcceleration(7500);
+		// Config FrontR same as FrontL
+	    FrontR->ConfigMotionCruiseVelocity(4096);
+	    FrontR->ConfigMotionAcceleration(4096);
+		FrontR->ConfigMotionSCurveStrength(4);
 
 
 		FrontR->ConfigPeakOutputForward(MaxOutput, 0);
@@ -115,8 +119,10 @@ void DriveBase::DriveBaseInit() {
 
 	
 		_diffDrive->SetExpiration(.5);
-		BackL->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontLeftDrive);
-		BackR->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontRightDrive);
+		BackL->Follow(*FrontL);
+		BackR->Follow(*FrontR);
+		//BackL->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontLeftDrive);
+		//BackR->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontRightDrive);
 		printf("Done setting up motor \n");
 
 }
