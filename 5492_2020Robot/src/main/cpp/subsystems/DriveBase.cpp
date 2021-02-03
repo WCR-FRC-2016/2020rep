@@ -20,7 +20,7 @@ void DriveBase::DriveBaseInit() {
 		BackR = new WPI_TalonFX (backRightDrive);
 		_diffDrive = new frc::DifferentialDrive(*FrontL, *FrontR);
 
-		
+		//0s motors
 		FrontR->ConfigFactoryDefault();
 		FrontL->ConfigFactoryDefault();
 		BackR->ConfigFactoryDefault();
