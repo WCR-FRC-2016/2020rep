@@ -17,8 +17,8 @@ DriveStraight::DriveStraight(DriveBase* drivebase, double distance): m_drivebase
 
 // Called when the command is initially scheduled.
 void DriveStraight::Initialize() {
-    m_goal = m_distance*20000 + m_drivebase->returnPosition();
-  //m_drivebase->setMotors(m_goal, m_goal);
+  m_goal = m_distance*20000 + m_drivebase->returnPosition();
+  m_drivebase->setMotors(m_goal, m_goal);
   //m_drivebase->setMotors(10000,10000);
 }
 
@@ -26,7 +26,7 @@ void DriveStraight::Initialize() {
 void DriveStraight::Execute() {
   //m_drivebase->ArcadeDrive(m_rotation,m_distance);
   //m_drivebase->AutoMotors(m_goal);
-  m_drivebase->setMotors(m_goal,m_goal);
+  //m_drivebase->setMotors(m_goal,m_goal);
 	frc::Shuffleboard::GetTab("Numbers").Add("driveBasePosition",m_drivebase->returnPosition());
 //printf("DriveStraight-Execute\n");
 }

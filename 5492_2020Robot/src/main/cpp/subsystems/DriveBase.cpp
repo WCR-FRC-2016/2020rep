@@ -32,17 +32,19 @@ void DriveBase::DriveBaseInit() {
 		BackL->SetInverted(false);
 
 		// enabled, limit(amp), trigger threshold(amp), trigger time threshold (s)
-		StatorCurrentLimitConfiguration* stator_limit =
-		    new StatorCurrentLimitConfiguration(true, 0, 50, 1);
+		//StatorCurrentLimitConfiguration* stator_limit =
+		//    new StatorCurrentLimitConfiguration(true, 0, 50, 1);
 		SupplyCurrentLimitConfiguration* supply_limit =
 		    new SupplyCurrentLimitConfiguration(true, 0, 50, 1);
 		
 		// Default limit of 0 seems mildly odd..
 
+		/*
 		FrontL->ConfigStatorCurrentLimit(*stator_limit);
 		FrontR->ConfigStatorCurrentLimit(*stator_limit);
 		BackL->ConfigStatorCurrentLimit(*stator_limit);
 		BackR->ConfigStatorCurrentLimit(*stator_limit);
+		*/
 
 		FrontL->ConfigSupplyCurrentLimit(*supply_limit);
 		FrontR->ConfigSupplyCurrentLimit(*supply_limit);
@@ -72,17 +74,28 @@ void DriveBase::DriveBaseInit() {
    		BackL->ConfigOpenloopRamp(RampTime, 0);
     	BackR->ConfigOpenloopRamp(RampTime, 0);
 
+		/*
+		FrontL->ConfigClosedloopRamp(ClosedLoopRampTime, 0);
+    	FrontR->ConfigClosedloopRamp(ClosedLoopRampTime, 0);
+   		BackL->ConfigClosedloopRamp(ClosedLoopRampTime, 0);
+    	BackR->ConfigClosedloopRamp(ClosedLoopRampTime, 0);
+		//*/
+
 		FrontR->ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, 0);
 		FrontL->ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, 0);
 
 
 		//PID BTW
+		FrontR->SelectProfileSlot(0,0);
 		FrontR->Config_kP(0, RightP, 0);
 		FrontR->Config_kI(0, RightI, 0);
 		FrontR->Config_kD(0, RightD, 0);
+		FrontR->Config_kF(0, RightF, 0);
+		FrontL->SelectProfileSlot(0,0);
 		FrontL->Config_kP(0, LeftP, 0);
 		FrontL->Config_kI(0, LeftI, 0);
 		FrontL->Config_kD(0, LeftD, 0);
+		FrontL->Config_kF(0, LeftF, 0);
 
 		FrontR->ConfigNominalOutputForward(NominalOutput, 0);
 		FrontR->ConfigNominalOutputReverse(-NominalOutput, 0);
@@ -94,14 +107,14 @@ void DriveBase::DriveBaseInit() {
 
 		
 		// Configure MotionMagic for froont motors (back motors are followers)
-	    FrontL->ConfigMotionCruiseVelocity(4096); // target velocity
-	    FrontL->ConfigMotionAcceleration(4096);   // max acceleration
-		FrontL->ConfigMotionSCurveStrength(4);    // strength of S curve..?
+	    FrontL->ConfigMotionCruiseVelocity(7500); // target velocity
+	    FrontL->ConfigMotionAcceleration(7500);  // max acceleration
+		FrontL->ConfigMotionSCurveStrength(1,0);  // acceleration smoothing (0-8)
 		
 		// Config FrontR same as FrontL
-	    FrontR->ConfigMotionCruiseVelocity(4096);
-	    FrontR->ConfigMotionAcceleration(4096);
-		FrontR->ConfigMotionSCurveStrength(4);
+	    FrontR->ConfigMotionCruiseVelocity(7500);
+	    FrontR->ConfigMotionAcceleration(7500);
+		FrontR->ConfigMotionSCurveStrength(1,0);
 
 
 		FrontR->ConfigPeakOutputForward(MaxOutput, 0);
@@ -112,8 +125,8 @@ void DriveBase::DriveBaseInit() {
 		FrontR->ConfigNeutralDeadband(PIDDeadband, 0);
 		FrontL->ConfigNeutralDeadband(PIDDeadband, 0);
 
-		FrontR->SetSelectedSensorPosition(0,0,0);
-		FrontL->SetSelectedSensorPosition(0,0,0);
+		FrontR->SetSelectedSensorPosition(0,0,10);
+		FrontL->SetSelectedSensorPosition(0,0,10);
 
 		_diffDrive->SetSafetyEnabled(false);
 

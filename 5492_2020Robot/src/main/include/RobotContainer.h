@@ -82,6 +82,8 @@ class RobotContainer {
   frc2::Button m_driverStart{[&] {return m_driverStick.GetStartButton();} };
   frc2::Button m_driverBack{[&] {return m_driverStick.GetBackButton();} };
 
+  frc2::Button m_driverRBumper{[&]{return m_driverStick.GetBumper(frc::GenericHID::kRightHand);} }; 
+
   frc2::InstantCommand m_Lift{[this] {m_doYouEvenLift.Lift();}, {&m_doYouEvenLift} };
   frc2::InstantCommand m_Extend{[this] {m_doYouEvenLift.Extend();}, {&m_doYouEvenLift} };
   frc2::InstantCommand m_Latch{[this] {m_doYouEvenLift.Latch();}, {&m_doYouEvenLift} };

@@ -50,7 +50,7 @@ void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
 
     m_driverB.WhenPressed(m_reverseDrive);
-    m_driverY.WhenPressed(m_slowDrive);
+    m_driverRBumper.WhenPressed(m_slowDrive);
 
     m_driverRT.WhileHeld(m_Extend);
     m_driverStart.WhileHeld(m_Delatch);

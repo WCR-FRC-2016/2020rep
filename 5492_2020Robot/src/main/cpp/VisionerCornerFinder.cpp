@@ -17,7 +17,7 @@ double VisionerCornerFinder::LostandFound(std::vector<double>  xArray, std::vect
     int maxIndexi[4];
     for(int i = 0; i < 4; i++){
         maxIndex = 0;
-        for(int j = 0; j < copyYArray.size(); j++){
+        for(unsigned int j = 0; j < copyYArray.size(); j++){
             if (copyYArray[j] < copyYArray[maxIndex])
             {
                 maxIndex = j;

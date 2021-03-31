@@ -24,4 +24,4 @@ void AutoxTurret::Execute() {
 void AutoxTurret::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoxTurret::IsFinished() { return (m_turret->returnxPositon() < m_degrees*xTurretDegree + xTurretError && m_turret->returnyPosition() > m_degrees*xTurretDegree - xTurretError); }
+bool AutoxTurret::IsFinished() { return (m_turret->returnxPositon() < m_degrees*xTurretDegree + xTurretError && m_turret->returnxPositon() > m_degrees*xTurretDegree - xTurretError); }
