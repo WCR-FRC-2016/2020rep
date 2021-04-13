@@ -7,13 +7,19 @@
 
 #include "subsystems/DriveBase.h"
 #include "RobotMap.h"
+#include "AHRS.h"
+#include <frc/geometry/Rotation2d.h>
+#include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
 
 DriveBase::DriveBase() {
-	
+
 }
 
 void DriveBase::DriveBaseInit() {
     initialized = true;
+
+		m_odometry = new frc::DifferentialDriveOdometry(frc::Rotation2d());
+
 		FrontL = new WPI_TalonFX (frontLeftDrive);
 		FrontR = new WPI_TalonFX (frontRightDrive);
 		BackL = new WPI_TalonFX (backLeftDrive);
@@ -247,6 +253,11 @@ void DriveBase::AutoMotors (double position){
 	//printf(static_cast<char*>(FrontL->GetSelectedSensorPosition()));
 	FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
 }
+//*
+double DriveBase::GetHeading () const {
+	return m_gyro.GetAngle();
+}
+//*/
 double DriveBase::returnPosition (){
 	return FrontL->GetSelectedSensorPosition();
 }
@@ -269,10 +280,32 @@ void DriveBase::slowDrive (bool yButton) {
 		
 	}
 }
+frc::Pose2d DriveBase::GetPose() { return m_odometry->GetPose(); }
+void DriveBase::TankDriveVolts(units::volt_t left, units::volt_t right) {
+  FrontL->SetVoltage(left);
+  FrontR->SetVoltage(-right);
+}
+frc::DifferentialDriveWheelSpeeds DriveBase::GetWheelSpeeds() {
+  // convert encoder clicks per 100ms to meters per second!
+  return {units::meters_per_second_t(FrontL->GetSelectedSensorVelocity() * 10 * 0.6094984 / 2048),
+          units::meters_per_second_t(FrontR->GetSelectedSensorVelocity() * 10 * 0.6094984 / 2048)};
+}
+
+void DriveBase::ResetOdometry(frc::Pose2d pose) {
+  ResetEncoders();
+  m_odometry->ResetPosition(pose, frc::Rotation2d(m_gyro.GetAngle() * 3.141592653589_rad / 180));
+}
 
 // This method will be called once per scheduler run
 void DriveBase::Periodic() {
     if(!initialized){
         DriveBaseInit();
     }
+
+	//*
+	m_odometry->Update(frc::Rotation2d(m_gyro.GetAngle() * 3.141592653589_rad / 180),
+					   // convert encoder clicks to meters!
+					   units::meter_t(FrontL->GetSelectedSensorPosition() * 0.6094984 / 2048),
+					   units::meter_t(FrontR->GetSelectedSensorPosition() * 0.6094984 / 2048));
+	//*/
 }

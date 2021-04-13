@@ -7,6 +7,10 @@
 
 #pragma once
 
+#include <frc/kinematics/DifferentialDriveKinematics.h>
+#include <frc/trajectory/constraint/DifferentialDriveKinematicsConstraint.h>
+#include <wpi/math>
+
 const int frontLeftDrive = 14; //encoder
 const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
@@ -68,6 +72,22 @@ const double FastShootingSpeed = 20000;
 const double pivotSpeedUp = 1 ;
 const double pivotSpeedDown = -0.5;
 const double pivotCurrentLimit = 3;
+
+// PathWeaver stuff
+
+constexpr auto ks = 0.653_V;
+constexpr auto kv = 0.050 * 1_V * 1_s / 1_m;
+constexpr auto ka = 0.00499 * 1_V * 1_s * 1_s / 1_m;
+
+constexpr double kPDriveVel = 0.224;
+
+constexpr auto kTrackwidth = 0.6096_m;
+
+constexpr auto kMaxSpeed = 1.5_mps;
+constexpr auto kMaxAcceleration = 1.5_mps_sq;
+
+constexpr double kRamseteB = 2;
+constexpr double kRamseteZeta = 0.7;
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide

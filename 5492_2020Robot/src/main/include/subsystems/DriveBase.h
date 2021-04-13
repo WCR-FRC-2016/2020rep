@@ -7,11 +7,15 @@
 
 #pragma once
 
+#include <frc/ADXRS450_Gyro.h>
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
 #include <frc/Joystick.h>
 #include <frc/RobotDrive.h>
 #include <frc/drive/DifferentialDrive.h>
+#include <frc/geometry/Pose2d.h>
+#include <frc/kinematics/DifferentialDriveOdometry.h>
+
 
 class DriveBase : public frc2::SubsystemBase {
  public:
@@ -28,6 +32,11 @@ class DriveBase : public frc2::SubsystemBase {
   void slowDrive(bool yButton);
   void ResetEncoders();
   bool CheckEncoders(double clicks);
+  void TankDriveVolts(units::volt_t left, units::volt_t right);
+  double GetHeading() const;
+  frc::Pose2d GetPose();
+  void ResetOdometry(frc::Pose2d pose);
+  frc::DifferentialDriveWheelSpeeds GetWheelSpeeds();
 
   void setMotors(double left, double right);
   void AutoMotors(double position);
@@ -41,6 +50,10 @@ class DriveBase : public frc2::SubsystemBase {
   WPI_TalonFX * FrontR;
   WPI_TalonFX * BackL; 
   WPI_TalonFX * BackR;
+
+  frc::ADXRS450_Gyro m_gyro;
+
+  frc::DifferentialDriveOdometry * m_odometry;
   
   frc::DifferentialDrive * _diffDrive;
   // Components (e.g. motor controllers and sensors) should generally be

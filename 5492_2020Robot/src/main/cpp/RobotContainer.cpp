@@ -17,6 +17,10 @@
 #include <frc2/command/PrintCommand.h>
 #include "commands/Baseline.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/Filesystem.h>
+#include <frc/trajectory/TrajectoryUtil.h>
+#include <wpi/Path.h>
+#include <wpi/SmallString.h>
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
 m_chooser.SetDefaultOption("Baseline", &m_baseLine);
@@ -73,5 +77,53 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return m_chooser.GetSelected();
+  //return m_chooser.GetSelected();
+  
+  // Temporarily replaced autonomous with pathfollowing.
+  // This is a temporary fix.
+
+  // Create a voltage constraint to ensure we don't accelerate too fast
+  
+  frc::DifferentialDriveKinematics kDriveKinematics = frc::DifferentialDriveKinematics(kTrackwidth);
+
+  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
+      frc::SimpleMotorFeedforward<units::meters>(
+          ks, kv, ka),
+      kDriveKinematics, 10_V);
+
+  // Set up config for trajectory
+  frc::TrajectoryConfig config(kMaxSpeed,
+                               kMaxAcceleration);
+  
+  // Add kinematics to ensure max speed is actually obeyed
+  config.SetKinematics(kDriveKinematics);
+  // Apply the voltage constraint
+  config.AddConstraint(autoVoltageConstraint);
+
+  wpi::SmallString<64> deployDirectory;
+  frc::filesystem::GetDeployDirectory(deployDirectory);
+  wpi::sys::path::append(deployDirectory, "paths");
+  wpi::sys::path::append(deployDirectory, "Test.wpilib.json");
+
+  frc::Trajectory trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDirectory);
+
+  frc2::RamseteCommand ramseteCommand(
+      trajectory, [this]() { return m_driveBase.GetPose(); },
+      frc::RamseteController(kRamseteB,
+                             kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(ks, kv, ka),
+      kDriveKinematics,
+      [this] { return m_driveBase.GetWheelSpeeds(); },
+      frc2::PIDController(kPDriveVel, 0, 0),
+      frc2::PIDController(kPDriveVel, 0, 0),
+      [this](auto left, auto right) { m_driveBase.TankDriveVolts(left, right); },
+      {&m_driveBase});
+
+  // Reset odometry to the starting pose of the trajectory.
+  m_driveBase.ResetOdometry(trajectory.InitialPose());
+
+  // no auto
+  return new frc2::SequentialCommandGroup(
+      std::move(ramseteCommand),
+      frc2::InstantCommand([this] { m_driveBase.TankDriveVolts(0_V, 0_V); }, {}));
 }

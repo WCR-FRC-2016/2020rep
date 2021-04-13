@@ -11,11 +11,11 @@
 #include <cscore_oo.h>
 #include <cameraserver/CameraServer.h>
 #include <frc/shuffleboard/Shuffleboard.h>
+
 void Robot::RobotInit() {
   //cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
     
   //camera.SetVideoMode(cs::VideoMode::kYUYV, 640, 360, 30);
- 
 }
 
 /**

@@ -31,6 +31,11 @@
 #include "commands/StandShootAuto.h"
 #include "commands/TenchAuto.h"
 #include "commands/RobinSquare.h"
+
+#include <frc2/command/RamseteCommand.h>
+#include <frc/controller/SimpleMotorFeedforward.h>
+#include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
+#include <frc/trajectory/TrajectoryConfig.h>
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
