@@ -18,7 +18,7 @@ DriveBase::DriveBase() {
 void DriveBase::DriveBaseInit() {
     initialized = true;
 
-		m_odometry = new frc::DifferentialDriveOdometry(frc::Rotation2d());
+		m_odometry = new frc::DifferentialDriveOdometry(frc::Rotation2d(-m_gyro.GetAngle() * 3.141592653589_rad / 180));
 
 		FrontL = new WPI_TalonFX (frontLeftDrive);
 		FrontR = new WPI_TalonFX (frontRightDrive);
@@ -237,11 +237,18 @@ void DriveBase::ArcadeDrive(double xAxis, double yAxis) {
 }
 
 void DriveBase::setMotors (double left, double right) {
-	FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, left);
-	//BackL->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, left);
-	FrontR->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, right);
-	//BackR->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, right);
+	FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::Position, left);
+	FrontR->Set(ctre::phoenix::motorcontrol::ControlMode::Position, right);
 }
+void DriveBase::setMotorsPO (double left, double right) {
+	FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, left);
+	FrontR->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, right);
+}
+void DriveBase::setMotorsMM (double left, double right) {
+	FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, left);
+	FrontR->Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, right);
+}
+
 void DriveBase::AutoMotors (double position){
 	double difference =  position - FrontL->GetSelectedSensorPosition();
 	double parsedSpeed = (abs(difference*100)/100>driveBaseError)?driveBaseP * difference:0.0;
@@ -258,8 +265,12 @@ double DriveBase::GetHeading () const {
 	return m_gyro.GetAngle();
 }
 //*/
-double DriveBase::returnPosition (){
+double DriveBase::returnPositionL (){
 	return FrontL->GetSelectedSensorPosition();
+}
+
+double DriveBase::returnPositionR (){
+	return FrontR->GetSelectedSensorPosition();
 }
 
 void DriveBase::reverseDrive (bool bButton) {
@@ -293,7 +304,7 @@ frc::DifferentialDriveWheelSpeeds DriveBase::GetWheelSpeeds() {
 
 void DriveBase::ResetOdometry(frc::Pose2d pose) {
   ResetEncoders();
-  m_odometry->ResetPosition(pose, frc::Rotation2d(m_gyro.GetAngle() * 3.141592653589_rad / 180));
+  m_odometry->ResetPosition(pose, frc::Rotation2d(-m_gyro.GetAngle() * 3.141592653589_rad / 180));
 }
 
 // This method will be called once per scheduler run
@@ -303,7 +314,7 @@ void DriveBase::Periodic() {
     }
 
 	//*
-	m_odometry->Update(frc::Rotation2d(m_gyro.GetAngle() * 3.141592653589_rad / 180),
+	m_odometry->Update(frc::Rotation2d(-m_gyro.GetAngle() * 3.141592653589_rad / 180),
 					   // convert encoder clicks to meters!
 					   units::meter_t(FrontL->GetSelectedSensorPosition() * 0.6094984 / 2048),
 					   units::meter_t(FrontR->GetSelectedSensorPosition() * 0.6094984 / 2048));

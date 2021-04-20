@@ -39,8 +39,11 @@ class DriveBase : public frc2::SubsystemBase {
   frc::DifferentialDriveWheelSpeeds GetWheelSpeeds();
 
   void setMotors(double left, double right);
+  void setMotorsPO(double left, double right);
+  void setMotorsMM(double left, double right);
   void AutoMotors(double position);
-  double returnPosition();
+  double returnPositionL();
+  double returnPositionR();
  private:
   bool initialized = false;
   double driveConstant = -1;

@@ -18,10 +18,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class DriveStraight
-    : public frc2::CommandHelper<frc2::CommandBase, DriveStraight> {
+class DriveTurn
+    : public frc2::CommandHelper<frc2::CommandBase, DriveTurn> {
  public:
-  DriveStraight(DriveBase* drivebase, double distance);
+  DriveTurn(DriveBase* drivebase, bool right);
 
   void Initialize() override;
 
@@ -33,7 +33,7 @@ class DriveStraight
 private:
   DriveBase* m_drivebase;
   double m_clicks;
-  double m_distance;
+  bool m_right;
   double m_goalL;
   double m_goalR;
   std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();

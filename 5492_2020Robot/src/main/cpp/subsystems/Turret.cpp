@@ -41,7 +41,7 @@ void Turret::TurretInit()
 	xTurretMotor->SetSelectedSensorPosition(0);
 	yTurretMotor->SetSelectedSensorPosition(0);
 	table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
-	frc::Shuffleboard::GetTab("Numbers").Add("Hood",yTurretMotor->GetSelectedSensorPosition());
+	//frc::Shuffleboard::GetTab("Numbers").Add("Hood",yTurretMotor->GetSelectedSensorPosition());
 	nt::NetworkTableInstance::GetDefault().GetTable("dataTable");
     init = true;
 
