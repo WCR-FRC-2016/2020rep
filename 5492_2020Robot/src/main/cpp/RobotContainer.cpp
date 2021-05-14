@@ -78,9 +78,10 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
+  //*
   return m_chooser.GetSelected();
   
-  /*
+  /*/
 
   // Create a voltage constraint to ensure we don't accelerate too fast
   
@@ -136,5 +137,5 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   return new frc2::SequentialCommandGroup(
       std::move(ramseteCommand),
       frc2::InstantCommand([this] { m_driveBase.TankDriveVolts(0_V, 0_V); }, {}));
-  */
+  //*/
 }

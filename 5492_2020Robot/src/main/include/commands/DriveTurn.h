@@ -34,7 +34,6 @@ private:
   DriveBase* m_drivebase;
   double m_clicks;
   bool m_right;
-  double m_goalL;
-  double m_goalR;
+  double m_goalA;
   std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 };

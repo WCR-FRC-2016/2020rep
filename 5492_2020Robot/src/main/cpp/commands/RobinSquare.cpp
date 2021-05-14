@@ -25,10 +25,13 @@ RobinSquare::RobinSquare(DriveBase* drivebase) {
   //   frc2::ParallelRaceGroup{AutoMove(drivebase, 0.2, 0.0)}.WithTimeout(1_s),
   //   frc2::ParallelRaceGroup{AutoMove(drivebase, 0.1, 0.2)}.WithTimeout(1_s));
   AddCommands(
-    frc2::ParallelRaceGroup{DriveStraight(drivebase, 5)}.WithTimeout(1_s),
-    frc2::ParallelRaceGroup{DriveTurn(drivebase, false)}.WithTimeout(1_s),
-    frc2::ParallelRaceGroup{DriveStraight(drivebase, 5)}.WithTimeout(1_s),
+    frc2::ParallelRaceGroup{DriveStraight(drivebase, 2.5)}.WithTimeout(1_s),
     frc2::ParallelRaceGroup{DriveTurn(drivebase, true)}.WithTimeout(1_s),
-    frc2::ParallelRaceGroup{DriveStraight(drivebase, 5)}.WithTimeout(1_s)
+    frc2::ParallelRaceGroup{DriveStraight(drivebase, 2.5)}.WithTimeout(1_s),
+    frc2::ParallelRaceGroup{DriveTurn(drivebase, true)}.WithTimeout(1_s),
+    frc2::ParallelRaceGroup{DriveStraight(drivebase, 2.5)}.WithTimeout(1_s),
+    frc2::ParallelRaceGroup{DriveTurn(drivebase, true)}.WithTimeout(1_s),
+    frc2::ParallelRaceGroup{DriveStraight(drivebase, 2.5)}.WithTimeout(1_s),
+    frc2::ParallelRaceGroup{DriveTurn(drivebase, true)}.WithTimeout(1_s)
   );
 }

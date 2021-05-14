@@ -19,18 +19,26 @@ DriveStraight::DriveStraight(DriveBase* drivebase, double distance): m_drivebase
 void DriveStraight::Initialize() {
   m_goalL = m_distance*20000 + m_drivebase->returnPositionL();
   m_goalR = m_distance*20000 + m_drivebase->returnPositionR();
+
+  // :)
+
+  wpi::outs() << " _|_|_|              _|                          _|_|_|    _|                          _|            _|          _|\n";
+  wpi::outs() << " _|    _|  _|  _|_|      _|      _|    _|_|    _|        _|_|_|_|  _|  _|_|    _|_|_|        _|_|_|  _|_|_|    _|_|_|_|\n";
+  wpi::outs() << " _|    _|  _|_|      _|  _|      _|  _|_|_|_|    _|_|      _|      _|_|      _|    _|  _|  _|    _|  _|    _|    _|\n";
+  wpi::outs() << " _|    _|  _|        _|    _|  _|    _|              _|    _|      _|        _|    _|  _|  _|    _|  _|    _|    _|\n";
+  wpi::outs() << " _|_|_|    _|        _|      _|        _|_|_|  _|_|_|        _|_|  _|          _|_|_|  _|    _|_|_|  _|    _|      _|_|\n";
+  wpi::outs() << "                                                                                                 _|\n";
+  wpi::outs() << "                                                                                             _|_|\n\n";
+
   m_drivebase->setMotorsPO(0.5, 0.5);
-  //m_drivebase->setMotors(10000,10000);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStraight::Execute() {
-  //m_drivebase->ArcadeDrive(m_rotation,m_distance);
-  //m_drivebase->AutoMotors(m_goal);
-  //m_drivebase->setMotors(m_goal,m_goal);
-	frc::Shuffleboard::GetTab("Numbers").Add("driveBasePosition",m_drivebase->returnPositionL());
-  frc::Shuffleboard::GetTab("Numbers").Add("command","Straight");
-  printf("DriveStraight-Execute\n");
+	//frc::Shuffleboard::GetTab("Numbers").Add("driveBasePosition",m_drivebase->returnPositionL());
+  //frc::Shuffleboard::GetTab("Numbers").Add("command","Straight");
+  
+  wpi::outs() << "DriveStraight-Execute\n";
 }
 
 // Called once the command ends or is interrupted.

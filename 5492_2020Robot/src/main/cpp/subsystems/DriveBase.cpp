@@ -255,9 +255,6 @@ void DriveBase::AutoMotors (double position){
 	if (abs(100*difference)/100 > driveBaseError){
 		parsedSpeed = (parsedSpeed > 0)?parsedSpeed + driveBaseMin:parsedSpeed - driveBaseMin;
 	}
-	//printf("AutoMotors");
-	//printf(static_cast<char*>(parsedSpeed));
-	//printf(static_cast<char*>(FrontL->GetSelectedSensorPosition()));
 	FrontL->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, parsedSpeed);
 }
 //*

@@ -18,6 +18,7 @@ const int backRightDrive = 0;
 
 const double driveBaseMin = 0.2;
 const double driveBaseError = 400;
+const double driveBaseAngleError = 1; // deg
 const double driveBaseP = 0.0001;
 
 const int liftMaster = 12;
