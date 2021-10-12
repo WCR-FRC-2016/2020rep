@@ -18,34 +18,34 @@
 #include "commands/Baseline.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/Filesystem.h>
-#include <frc/trajectory/TrajectoryUtil.h>
-#include <frc/trajectory/TrajectoryGenerator.h>
+//#include <frc/trajectory/TrajectoryUtil.h>
+//#include <frc/trajectory/TrajectoryGenerator.h>
 #include <wpi/Path.h>
 #include <wpi/SmallString.h>
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
-m_chooser.SetDefaultOption("Robin Square",&m_robinSquare);
-m_chooser.AddOption("Baseline", &m_baseLine);
-m_chooser.AddOption("Shooting Straight", &m_shootingAuto );
-m_chooser.AddOption("Shoot Standing",&m_standShootAuto);
-m_chooser.AddOption("Trench Run Auto",&m_tenchAuto);
+  m_chooser.SetDefaultOption("Robin Square",&m_robinSquare);
+  m_chooser.AddOption("Baseline", &m_baseLine);
+  m_chooser.AddOption("Shooting Straight", &m_shootingAuto);
+  m_chooser.AddOption("Shoot Standing",&m_standShootAuto);
+  m_chooser.AddOption("Trench Run Auto",&m_tenchAuto);
 
-frc::Shuffleboard::GetTab("Autonomous").Add(m_chooser);
+  frc::Shuffleboard::GetTab("Autonomous").Add(m_chooser);
 
-m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
-  [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);} ,
-  [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
+  m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
+    [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);} ,
+    [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
+    ));
+
+
+  m_turret.SetDefaultCommand(ManualTurret(&m_turret,
+    [this] { return m_manStick.GetX(frc::GenericHID::kRightHand);},
+    [this] { return m_manStick.GetY(frc::GenericHID::kLeftHand);}
   ));
+  m_doYouEvenLift.SetDefaultCommand(LiftDefault(&m_doYouEvenLift));
 
-
-m_turret.SetDefaultCommand(ManualTurret(&m_turret,
-  [this] { return m_manStick.GetX(frc::GenericHID::kRightHand);},
-  [this] { return m_manStick.GetY(frc::GenericHID::kLeftHand);}
-));
-m_doYouEvenLift.SetDefaultCommand(LiftDefault(&m_doYouEvenLift));
-
-m_insideCollector.SetDefaultCommand(BallCollectorDefault(&m_insideCollector) );
-m_collector.SetDefaultCommand(TaxEvasion(&m_collector));
+  m_insideCollector.SetDefaultCommand(BallCollectorDefault(&m_insideCollector) );
+  m_collector.SetDefaultCommand(TaxEvasion(&m_collector));
   // Configure the button bindings
   ConfigureButtonBindings();
   

@@ -31,7 +31,7 @@ void DriveBase::DriveBaseInit() {
 		FrontL->ConfigFactoryDefault();
 		BackR->ConfigFactoryDefault();
 		BackL->ConfigFactoryDefault();
-//Inverting motors: two motors on a single gear have to drive oppisite directions.
+//Inverting motors: two motors on a single gear have to drive opposite directions.
 		FrontR->SetInverted(true);
 		FrontL->SetInverted(false);
 		BackR->SetInverted(true);
